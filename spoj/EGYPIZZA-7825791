@@ -1,0 +1,51 @@
+#include<stdio.h>
+int main()
+{
+	int pizza=0,hf=0,tf=0,of=0,x,r,n;
+	char a[4];
+	scanf("%d",&n);
+	while(n--)
+	{
+		scanf("%s",a);
+		if(a[0]==51)
+			tf++;
+		else if(a[2]==50)
+			hf++;
+		else
+			of++;
+	}
+	//printf("3/4=%d 1/2=%d 1/4=%d\n",tf,hf,of);	
+	if(tf>=of)
+	{
+		pizza+=tf;
+		of=0;
+	}
+	else
+	{
+		pizza+=tf;
+		of-=pizza;
+	}
+	//printf("tf=> %d\n",pizza);
+	pizza+=hf/2;
+	hf=(hf%2);
+	//printf("hf=> %d\n",pizza);
+	if(hf>0 &&of>=2)
+	{
+		pizza++;
+		of-=2;
+	}
+	else if(hf>0 && of<2)
+	{		
+		of=0;		
+		pizza++;
+	}	
+	//printf("hf+of=> %d\n",pizza);
+	r=of%4;
+	if(r>0)
+		pizza++;
+	x=of/4;
+	pizza+=x;
+	//printf("of=> %d\n",pizza);
+	printf("%d\n",pizza+1);
+	return 0;
+}

@@ -1,0 +1,157 @@
+#include<cstdio>
+#include<list>
+#include<algorithm>
+#include<queue>
+using namespace std;
+class Graph
+{
+	public:
+	Graph(void){}
+	int BFS(int a,int b)
+	{
+		queue<int> Q;
+		int label[70],visited[70];
+		for(int i=0;i<70;i++)
+			visited[i]=0;
+		int t,q,r,n;
+		Q.push(a);
+		visited[a]=-1;
+		label[a]=0;
+		while(!Q.empty())
+		{
+			//printf("\n");
+			t=Q.front();
+			Q.pop();
+			visited[t]=1;
+			if(t==b)
+				return label[t];
+			q=t/8;
+			r=t%8;
+			if(q-2 >=0)
+			{
+				n=(q-2)*8;
+				if(r-1 >=0)
+				{
+					n+=(r-1);
+					if(!visited[n])
+					{
+					label[n]=label[t]+1;
+					visited[n]=-1;
+					//printf("%d ",n);
+					Q.push(n);
+					}
+				}
+				n=(q-2)*8;
+				if(r+1<=7)
+				{
+					n+=(r+1);
+					if(!visited[n])
+					{
+					label[n]=label[t]+1;
+					visited[n]=-1;
+					//printf("%d ",n);
+					Q.push(n);
+					}
+				}
+			}
+			if(q+2<=7)
+			{
+				n=(q+2)*8;
+				if(r-1 >=0)
+				{
+					n+=(r-1);
+					if(!visited[n])
+					{
+					label[n]=label[t]+1;
+					visited[n]=-1;
+					//printf("%d ",n);
+					Q.push(n);
+					}
+				}
+				n=(q+2)*8;
+				if(r+1<=7)
+				{
+					n+=(r+1);
+					if(!visited[n])
+					{
+					label[n]=label[t]+1;
+					visited[n]=-1;
+					//printf("%d ",n);
+					Q.push(n);
+					}
+				}
+			}
+			if(r-2>=0)
+			{
+				n=(r-2);
+				if(q-1 >=0)
+				{
+					n+=(8*(q-1));
+					if(!visited[n])
+					{
+					label[n]=label[t]+1;
+					//printf("%d ",n);
+					visited[n]=-1;
+					Q.push(n);
+					}
+				}
+				n=r-2;
+				if(q+1<=7)
+				{
+					n+=(8*(q+1));
+					if(!visited[n])
+					{
+					label[n]=label[t]+1;
+					visited[n]=-1;
+					//printf("%d ",n);
+					Q.push(n);
+					}
+				}
+			}
+			if(r+2<=7)
+			{
+				n=(r+2);
+				if(q-1 >=0)
+				{
+					n+=(8*(q-1));
+					if(!visited[n])
+					{
+					label[n]=label[t]+1;
+					visited[n]=-1;
+					//printf("%d ",n);
+					Q.push(n);
+					}
+				}
+				n=r+2;
+				if(q+1<=7)
+				{
+					n+=(8*(q+1));
+					if(!visited[n])
+					{
+					label[n]=label[t]+1;
+					visited[n]=-1;
+					//printf(":%d: ",n);
+					Q.push(n);
+					}
+				}
+			}
+		}
+	}
+};
+int main()
+{
+	char s[5],d[5];
+	int t,a,b;
+	Graph G;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%s%s",s,d);
+		a=(s[0]-'a')*8 + (s[1]-49);
+		b=(d[0]-'a')*8 + (d[1]-49);
+		//printf("%d %d\n",a,b);
+		printf("%d\n",G.BFS(a,b));
+	}
+	return 0;
+}
+	

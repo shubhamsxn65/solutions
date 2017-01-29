@@ -1,0 +1,68 @@
+#include<stdio.h>
+void mat_mult(long long int a[][2],long long int b[][2])
+{
+	long long int temp[2][2]={0,0,0,0},i,j,k;
+	for(i=0;i<2;i++)
+		for(j=0;j<2;j++)
+			for(k=0;k<2;k++)
+				temp[i][j]=((temp[i][j]+(a[i][k]*b[k][j])%1000000006)%1000000006);
+	for(i=0;i<2;i++)
+	{	for(j=0;j<2;j++){//printf("%lld  ",temp[i][j]);
+			a[i][j]=temp[i][j];}//printf("\n");
+}
+	return;
+}
+
+
+void mat_pow(long long int a[][2],long long int n)
+{
+	long long int b[2][2]={1,1,1,0};
+	if(n==1)
+		return;
+	
+	else if(n & 1)
+	{	mat_pow(a,n/2);
+		mat_mult(a,a);
+		mat_mult(a,b);
+	}
+	else
+	{	mat_pow(a,n/2);
+		mat_mult(a,a);
+	}
+	return ;
+}
+
+long long int power(long long int base,long long int expo,long long int mod)
+{
+	if(expo==0) return 1;
+	if(expo==1) return base%mod;
+	long long int tmpAnswer=power(base,expo/2,mod);
+	return (((expo%2?(base):1)%mod)*((tmpAnswer)%mod)*((tmpAnswer)%mod)%mod);
+}
+
+
+int main()
+{
+	long long int n,f,t;
+	scanf("%lld",&t);
+	while(t--)
+	{	long long a[2][2]={1,1,1,0};
+		scanf("%lld",&n);
+		if(n==1)
+		{	
+			printf("2\n");
+			continue;
+		}
+		else if(n==0)
+		{	
+			printf("1\n");
+			continue;
+		}
+		mat_pow(a,n-1);
+		f=(a[0][0])%1000000006;
+		//printf("f=%lld\n",f);
+		f=power(2,f,1000000007);
+		printf("%lld\n",f);
+	}
+	return 0;
+}

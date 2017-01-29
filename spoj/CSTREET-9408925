@@ -1,0 +1,101 @@
+#include<cstdio>
+#include<vector>
+#include<algorithm>
+
+#define edge pair<int,int> 
+
+using namespace std;
+class Graph
+{
+	int v,e,*rank,*parent,total,count;
+	vector< pair < int , edge > > G;
+	public:
+		Graph(int v,int e)
+		{
+			this->v=v;
+			this->e=e;
+			rank = new int [v];
+			parent = new int [v];
+			for(int i=0;i<v;i++)
+			{
+				parent[i]=i;
+				rank[i]=1;
+			}
+			total=0;
+			count=0;
+		}
+		int findset(int x)
+		{
+		 	if(x!=parent[x])
+		 		parent[x]=findset(parent[x]);
+		 	return parent[x];
+		}
+		void addEdge(int u,int v,int w)
+		{
+			G.push_back(pair< int, edge >(w, edge(u, v)));
+		}
+		void kruskal(void)
+		{
+			sort(G.begin(),G.end());
+			for(int i=0;i<e;i++)
+			{
+				int u=G[i].second.first;
+				int v=G[i].second.second;
+				int pu=findset(u);
+				int pv=findset(v);
+				if(pu!=pv)
+				{
+					merge(pu,pv);
+					total+=G[i].first;
+				}
+			}
+		}
+		void merge(int x,int y)
+		{
+			if(rank[x]>rank[y])
+				parent[y]=x;
+			else
+				parent[x]=y;
+			if(rank[x]==rank[y])
+				rank[y]++;
+		}
+		int cost(void)
+		{
+			return total;
+		}
+};
+int get_int()
+{
+	char c;
+	int ans=0;
+	c=getc_unlocked(stdin);
+	while(c>47)
+	{	
+		ans=(ans*10) + (c-48);
+		c=getc_unlocked(stdin);
+	}
+	return ans;
+}
+
+int main()
+{
+	int e,v,t,p,x,y,w;
+	t=get_int();
+	while(t--)
+	{
+		p=get_int();
+		v=get_int();
+		e=get_int();
+		Graph G(v,e);
+		while(e--)
+		{
+			x=get_int();
+			y=get_int();
+			w=get_int();
+			G.addEdge(x-1,y-1,w);
+		}
+		G.kruskal();
+		printf("%d\n",p*(G.cost()));
+	}
+	return 0;
+}

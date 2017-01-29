@@ -1,0 +1,40 @@
+#include<stdio.h>
+int main()
+{
+        long long int t,i,n,r,d;
+        scanf("%lld",&t);
+        while(t--)
+        {
+                scanf("%lld",&n);
+                if(n==1)
+                        printf("poor conductor\n");
+                else
+                {
+                        r=n%5;
+                        for(i=1;i;i++)
+                        {
+                                if(5*i>(n-2))
+                                        break;
+                        }
+                        if(r==4)
+                                printf("%lld A R\n",i);
+                        else if(r==2||r==1)
+                        {
+                                d=(n)/5;
+                                if(d%2==0)
+                                        printf("%lld W L\n",i);
+                                else
+                                        printf("%lld W R\n",i);
+                        }
+                        else if(r==0 || r==3)
+                        {
+                                d=(n)/5;
+                                if(d%2==0)
+                                        printf("%lld A L\n",i);
+                                else
+                                        printf("%lld M R\n",i);
+                        }
+                }
+        }
+        return 0;
+}

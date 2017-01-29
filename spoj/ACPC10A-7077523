@@ -1,0 +1,18 @@
+#include<stdio.h>
+int main()
+{
+	int a,b,c;
+	do 
+	{
+	 	scanf("%d%d%d",&a,&b,&c);
+	 	if(a || b || c)
+	 	{
+	 		if((b-a)==(c-b))
+	 			printf("AP %d",(c+(b-a)));
+	 		else if ((b/a)==(c/b))
+	 			printf("GP %d",(c*(b/a)));
+	 		printf("\n");
+	 	}	
+	}while(a || b || c);
+	return 0;
+}

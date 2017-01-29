@@ -1,0 +1,29 @@
+#include<stdio.h>
+int main()
+{
+	char a[2010];
+	int i,t,count,open,close,k=1,ans;
+	while(scanf("%s",a) && a[0]!='-')
+	{	
+		open=close=count=0;	
+		for(i=0;a[i];i++)
+		{
+			if(a[i]=='{')
+				open++;
+			else
+			{
+				if(open==0)
+				{
+					open++;
+					count++;
+				}
+				else
+					open--;
+			}
+			
+		}
+		count+=(open/2);
+		printf("%d. %d\n",k++,count);
+	}
+	return 0;
+}

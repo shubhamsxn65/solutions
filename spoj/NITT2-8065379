@@ -1,0 +1,46 @@
+#include<stdio.h>
+#include<math.h>
+long long int mod(long long int a,char b[],int dig)
+{
+	long long int x=0,i,j;
+	for(i=0;i<dig;i++)
+		x=(x*10)+(b[i]-48);
+	for(j=dig;b[j];j++)
+	{
+		x=(x*10)+(b[j]-48);
+		x=x%a;
+	}
+	return x;
+}
+
+long long int gcd(long long int a,long long int b)
+{
+	if(b==0)
+		return a;
+	else 
+		return gcd(b,a%b);
+}
+
+int main()
+{
+	char a[50010];
+	int t,b;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%s",a);
+		b=mod(252,a,3);
+		b=gcd(252,b);
+		if(b==252)
+			printf("Yes ");
+		else
+			printf("No ");
+		b=mod(525,a,3);
+		b=gcd(525,b);
+		if(b==525)
+			printf("Yes\n");
+		else
+			printf("No\n");
+	}
+	return 0;
+}

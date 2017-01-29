@@ -1,0 +1,56 @@
+#include<stdio.h>
+int min(int x,int y)
+{
+	if(x>y)
+		return y;
+	return x;
+}
+
+int gcd(int a,int b)
+{
+	return b?gcd(b,a%b):a;
+}
+
+int test(int a,int b,int c)
+{
+	int x=a,y=0,count=1,p;
+	while(x!=c && y!=c)
+	{
+		p=min(x,b-y);
+		x=x-p;
+		y=y+p;
+		count++;
+		if(x==c || y==c)
+			break;
+		if(x==0)
+		{
+			x=a;
+			count++;
+		}
+		if(y==b)
+		{
+			y=0;
+			count++;
+		}
+	}
+	return count;
+}
+
+
+int main()
+{
+	int t,a,b,c;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d%d%d",&a,&b,&c);
+		if(c==0)
+			printf("0\n");
+		else if(c%gcd(a,b)!=0 || (c>a && c>b))
+			printf("-1\n");
+		else
+			printf("%d\n",min(test(a,b,c),test(b,a,c)));
+	}
+	return 0;
+}
+		

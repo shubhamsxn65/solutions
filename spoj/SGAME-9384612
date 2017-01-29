@@ -1,0 +1,28 @@
+#include<stdio.h>
+int main()
+{
+	int t,n,x,y,i;
+	scanf("%d",&t);
+	while(t--)
+	{
+		int hash[310]={};
+		scanf("%d",&n);
+		n=0;
+		while(scanf("%d%d",&x,&y) && x!=-1 && y!=-1)
+		{
+			hash[x]++;
+			hash[y]++;
+		}
+		for(i=0;i<305;i++)
+			if(hash[i] & 1)
+			{
+				n=1;
+				break;
+			}
+		if(n)
+			printf("NO\n");
+		else
+			printf("YES\n");
+	}
+	return 0;
+}		

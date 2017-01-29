@@ -1,0 +1,30 @@
+#include<stdio.h>
+int main()
+{
+	int n,sum,cur=0,max=0,start=0,i,x;
+	char c;
+	int a[300000];
+	scanf("%d%d\n",&n,&sum);
+	for(i=0;i<n;i++)
+	{	x=0;
+		c=getc_unlocked(stdin);
+		while(c>32){
+			x=x*10+(c-48);
+			c=getc_unlocked(stdin);
+		}
+		//printf("%d\t",x);
+		a[i]=x;
+		cur=cur+a[i];
+		while(cur>sum && start<i)
+		{
+			cur=cur-a[start];
+			start++;
+		}
+		if(cur>max)
+			max=cur;
+		if(max==sum)
+			break;
+	}
+	printf("%d\n",max);
+	return 0;
+}		

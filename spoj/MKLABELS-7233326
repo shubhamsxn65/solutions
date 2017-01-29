@@ -1,0 +1,13 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	unsigned long long int o;
+	int k=1,n;
+	while((scanf("%d",&n)) && n)
+	{
+		o=pow(n,n-2);
+		printf("Case %d, N = %d, # of different labelings = %llu\n",k++,n,o);
+	}
+	return 0;
+}

@@ -1,0 +1,81 @@
+#include<iostream>
+#include<list>
+#include<vector>
+#include<cstdio>
+
+using namespace std;
+
+#define tr(c,i) for(typeof((c).begin()) i = (c).begin();i!=(c).end();i++)
+
+typedef list<int> li;
+
+
+class Graph
+{
+	int v_no,i;
+	li *adj;
+	int *visited;
+	public:
+		Graph(int v)
+		{
+			this->v_no=v;
+			this->adj= new li [v];
+			this->visited=new int [v];
+		}
+		void ini(void)
+		{
+			for(i=0;i<v_no;i++)
+				visited[i]=-1;
+		}
+		void addedge(int start,int end)
+		{
+			adj[start].push_back(end);
+		}
+		void DFS(int node,int count)
+		{
+			if(visited[node]==-1)
+			{
+				visited[node]=count;
+				tr(adj[node],it)
+					if(visited[*it]==-1)
+						DFS(*it,count+1);
+			}
+		}
+		int get_max(void)
+		{
+			int max=0;
+			for(i=0;i<v_no;i++)
+			{
+				//printf("%d ",visited[i]);
+				if(visited[i]>visited[max])
+					max=i;
+			}
+			//printf("\n");
+			return max;
+		}
+		int get_val(int node)
+		{
+			return visited[node];
+		}
+};
+
+
+int main()
+{
+	int v,x,y,i;
+	scanf("%d",&v);
+	Graph G(v);
+	G.ini();
+	for(i=0;i<v-1;i++)
+	{
+		scanf("%d%d",&x,&y);
+		G.addedge(x-1,y-1);
+		G.addedge(y-1,x-1);
+	}
+	G.DFS(0,0);
+	int node=G.get_max();
+	G.ini();
+	G.DFS(node,0);
+	printf("%d\n",G.get_val(G.get_max()));
+	return 0;
+}

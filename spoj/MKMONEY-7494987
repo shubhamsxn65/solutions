@@ -1,0 +1,19 @@
+#include<stdio.h>
+int main()
+{
+	double p,r,a,p2;
+	long int m,i,p1,k=1;
+	while(scanf("%lf%lf%ld",&p,&r,&m) && p!=0 && r!=0 && m!=0)
+	{	p2=p;
+		for(i=1;i<=m;i++)
+		{
+			a=p*r/(m*100);
+			p1=a*100;
+			a=((double)p1/100);
+			p=p+a;
+		}
+		printf("Case %ld. $%.2lf at %.2lf%% APR compounded %ld times yields $%.2lf\n",k++,p2,r,m,p);
+	}
+	return 0;
+}
+			

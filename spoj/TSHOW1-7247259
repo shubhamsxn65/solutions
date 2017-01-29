@@ -1,0 +1,22 @@
+#include<stdio.h>
+char ar[2]={'5','6'};
+void recur(long int n)
+{
+n=n-1;
+if(n/2)
+recur(n/2);
+putchar(ar[n%2]);
+}
+int main()
+{
+
+long int t,n;
+scanf("%ld",&t);
+while(t--)
+{
+scanf("%ld",&n);
+recur(n);
+printf("\n");
+}
+return 0;
+}

@@ -1,0 +1,31 @@
+#include<stdio.h>
+int get_int()
+{
+	char c;
+	int ans=0;
+	c=getc_unlocked(stdin);
+	while(c>47)
+	{	
+		ans=(ans*10) + (c-48);
+		c=getc_unlocked(stdin);
+	}
+	return ans;
+}
+int main()
+{
+	int ar[100010],i,n,hash[100010]={0};
+	while(scanf("%d\n",&n) && n)
+	{
+		for(i=1;i<=n;i++)
+		{
+			ar[i]=get_int();
+			hash[ar[i]]=i;
+		}
+		for(i=1;i<=n && ar[i]==hash[i];i++);
+		if(i==n+1)
+			printf("ambiguous\n");
+		else
+			printf("not ambiguous\n");
+	}
+	return 0;
+}

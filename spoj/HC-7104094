@@ -1,0 +1,36 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main()
+{
+ int *a,t,i,n,k,c;
+ scanf("%d",&t);
+ for(k=1;k<=t;k++)
+ {
+         c=0;
+         i=0;
+         scanf("%d",&n);
+         a=(int*)malloc(n*sizeof(int));
+         while(i<n)
+         {
+                c= getchar();
+                scanf("%c",(a+i));
+                c= getchar();
+                c= getchar();
+                 i++;
+         }
+         c=0;
+         while(c<n)
+         {
+                   if(a[c]==a[c+1])
+                           a[c+1]='h';
+                   else
+                           a[c+1]='l';
+                 c++;
+         }
+         if(a[c-1]=='h')
+                  printf("hhb\n");
+         else
+                 printf("lxh\n");
+ }
+ return 0;
+}

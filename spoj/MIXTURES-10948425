@@ -1,0 +1,43 @@
+#include<cstdio>
+#include<algorithm>
+#include<string>
+#include<vector>
+#include<iostream>
+#define INF 999999999
+using namespace std;
+int n,ar[105],cum[105][105],ans[105][105];
+int call(int i,int j)
+{
+	if(i==j)
+		return 0;
+	if(j==i+1)
+	{
+		ans[i][j]=ar[i]*ar[j];
+		return ans[i][j];
+	}
+	if(ans[i][j]!=INF)
+		return ans[i][j];
+	for(int k=i;k<j;k++)
+		ans[i][j]=min(ans[i][j],cum[i][k]*cum[k+1][j] + call(i,k) + call(k+1,j));
+	return ans[i][j];
+}
+int main()
+{
+	while(scanf("%d",&n)!=EOF)
+	{
+		for(int i=1;i<=n;i++)
+			scanf("%d",ar+i);
+		for(int i=1;i<=n;i++)
+			cum[i][i]=ar[i];
+		for(int i=1;i<=n;i++)
+		{
+			for(int j=i+1;j<=n;j++)
+			{
+				ans[i][j]=INF;
+				cum[i][j]=(cum[i][j-1]+ar[j])%100;
+			}
+		}
+		printf("%d\n",call(1,n));
+	}
+	return 0;
+}

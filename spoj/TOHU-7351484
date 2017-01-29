@@ -1,0 +1,15 @@
+#include<stdio.h>
+int main()
+{
+	long double s,n;
+	long int t;
+	scanf("%ld",&t);
+	while(t--)
+	{
+		scanf("%Lf",&n);
+		s=(long double)1/(long double)(2*(n+1)*(n+2));
+		s=((long double)3/(long double)4)-s;
+		printf("%.11Lf\n",s);
+	}
+	return 0;
+}

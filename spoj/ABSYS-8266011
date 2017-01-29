@@ -1,0 +1,43 @@
+#include<stdio.h>
+int main()
+{
+	char inp1[20],inp2[20],inp3[20],c;
+	int i,t,p,q,r;
+	scanf("%d",&t);
+	while(t--)
+	{	
+		scanf("\n");		
+		int  flag=0;
+		scanf("%s %c %s %c %s",inp1,&c,inp2,&c,inp3);
+		//printf("%s\n%c\n%s\n%c\n%s",inp1,c,inp2,c,inp3);
+		for(i=0;inp1[i];i++)
+			if(inp1[i]=='m')
+				flag=1;
+		for(i=0;inp2[i];i++)
+			if(inp2[i]=='m')
+				flag=2;
+		for(i=0;inp3[i];i++)
+			if(inp3[i]=='m')
+				flag=3;
+		if(flag==1)
+		{
+			q=atoi(inp2);
+			r=atoi(inp3);
+			p=r-q;
+		}
+		else if(flag==2)
+		{
+			p=atoi(inp1);
+			r=atoi(inp3);
+			q=r-p;
+		}
+		else
+		{
+			p=atoi(inp1);
+			q=atoi(inp2);
+			r=p+q;
+		}
+		printf("%d + %d = %d\n",p,q,r);
+	}
+	return 0;
+}

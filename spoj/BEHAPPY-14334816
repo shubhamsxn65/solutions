@@ -1,0 +1,63 @@
+#include<cstdio>
+#include<algorithm>
+#include<vector>
+#include<cstdlib>
+#include<cstring>
+#include<string>
+#include<map>
+#include<iostream>
+#include<sstream>
+
+using namespace std;
+
+#define MP make_pair
+#define PB push_back
+#define MOD 1000000000
+#define MAX 1010
+#define INF 999999999
+#define X first
+#define Y second
+
+typedef pair<int,int> pii;
+typedef pair< int, pii  > edge;
+vector < pii > v;
+int m,n,dp[25][110];
+int fun(int idx,int x)
+{
+	//printf("%d %d\n",idx,x);
+	if(idx==m)
+	{	
+		if(x==0)
+			return 1;
+		else
+			return 0;
+	}
+	int & r = dp[idx][x];
+	if(r!=-1)
+		return r;
+	r=0;
+	for(int i= v[idx].X;i<=v[idx].Y;i++)
+	{
+		if(x>=i)
+			r+=fun(idx+1,x-i);
+		else
+			break;
+	}
+	return r;
+}
+int main()
+{
+	int x,y;
+	while(scanf("%d%d",&m,&n) && m!=0 && n!=0)
+	{
+		for(int i=0;i<m;i++)
+		{
+			scanf("%d%d",&x,&y);
+			v.PB(MP(x,y));
+		}
+		memset(dp,-1,sizeof(dp));
+		printf("%d\n",fun(0,n));
+	}
+	return 0;
+}
+	

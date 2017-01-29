@@ -1,0 +1,16 @@
+#include<stdio.h>
+int main()
+{
+	unsigned long long int t,n;
+	scanf("%llu",&t);
+	while(t--)
+	{
+		scanf("%llu",&n);
+		n=(n*(3*n+1)/2)%1000007;
+		
+		printf("%llu\n",n);
+	}
+	return 0;
+}
+	
+

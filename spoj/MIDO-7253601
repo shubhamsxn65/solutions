@@ -1,0 +1,48 @@
+#include<stdio.h>
+int main()
+{
+	int t[100],n,i,j,ps[105],c1,c2,t1,t2,min[100],sec[100];
+	scanf("%d",&n);
+		for(i=0;i<n;i++)
+		{
+			scanf("%d",&t[i]);
+			c1=getchar();
+			scanf("%d",&min[i]);
+			c1=getchar();
+			scanf("%d",&sec[i]);
+			
+		}
+		for(i=0;i<n;i++)
+			ps[i]=(min[i]*60)+sec[i];
+		c1=0;c2=0;t1=0;t2=0;
+		ps[n]=2880;
+		for(i=0;i<n;i++)
+		{
+			if(t[i]==1)
+				c1++;
+			else
+				c2++;
+			if(c1>c2)
+				t1=t1+(ps[i+1]-ps[i]);
+			else if(c2>c1)
+				t2=t2+(ps[i+1]-ps[i]);
+		}
+		if(t1/60>9)
+			printf("%d:",t1/60);
+		else
+			printf("0%d:",t1/60);
+		if(t1%60>9)
+			printf("%d\n",t1%60);
+		else
+			printf("0%d\n",t1%60);
+		if(t2/60>9)
+			printf("%d:",t2/60);
+		else
+			printf("0%d:",t2/60);
+		if(t2%60>9)
+			printf("%d\n",t2%60);
+		else
+			printf("0%d\n",t2%60);
+	
+	return 0;
+}

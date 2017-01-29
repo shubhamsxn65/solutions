@@ -1,0 +1,16 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	long long int r,b,l,w,t,l1,l2,m;
+	scanf("%lld%lld",&r,&b);
+	t=(r+4)/2;m=(r+4)/2;
+	t=(t*t)-(4*(r+b));
+	t=sqrt(t);
+	l1=(m+t)/2;
+	l2=(m-t)/2;
+	l=l1>l2?l1:l2;
+	w=m-l;
+	l>w?printf("%lld %lld\n",l,w):printf("%lld %lld\n",w,l);
+	return 0;
+}

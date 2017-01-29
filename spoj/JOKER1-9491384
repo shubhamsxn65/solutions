@@ -1,0 +1,27 @@
+#include<cstdio>
+#include<algorithm>
+#define mod 1000000007
+using namespace std;
+int main()
+{
+	int t,n,a[70],i;
+	long long ans;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d",&n);
+		for(i=0;i<n;i++)
+			scanf("%d",a+i);
+		sort(a,a+n);
+		ans=1;
+		for(i=0;i<n;i++)
+		{
+			ans=(ans*((long long)(a[i]-i)))%mod;
+			if(!ans)
+				break;
+		}
+		printf("%lld\n",ans);
+	}
+	printf("KILL BATMAN\n");
+	return 0;
+}

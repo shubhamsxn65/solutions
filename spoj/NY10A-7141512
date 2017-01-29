@@ -1,0 +1,55 @@
+#include<stdio.h>
+int main()
+{
+	char a[50];
+	int t;
+	scanf("%d",&t);
+	while(t>0)
+	{
+		
+		int c,ttt=0,tth=0,tht=0,thh=0,htt=0,hht=0,hth=0,i,hhh=0,n;
+		scanf("%d",&n);
+		c=getchar();
+		scanf("%s",a);
+		for(i=0;i<=37;i++)
+		{
+			if(a[i]=='T')
+			{
+				if(a[i+1]=='T')
+				{
+					if(a[i+2]=='T')
+						ttt++;
+					else
+						tth++;
+				}
+				else
+				{
+					if(a[i+2]=='T')
+						tht++;
+					else
+						thh++;
+				}
+			}
+			else
+			{
+				if(a[i+1]=='T')
+				{
+					if(a[i+2]=='T')
+						htt++;
+					else
+						hth++;
+				}
+				else
+				{
+					if(a[i+2]=='T')
+						hht++;
+					else
+						hhh++;
+				}
+			}
+		}
+		printf("%d %d %d %d %d %d %d %d %d\n",n,ttt,tth,tht,thh,htt,hth,hht,hhh);
+		t--;
+	}
+	return 0;
+}

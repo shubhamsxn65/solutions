@@ -1,0 +1,84 @@
+#include<stdio.h>
+int nf,rg,k,divisors[10000],prime[100],no_f[10000];
+int get_f(int n)
+{
+	int x=0,i;
+	//printf("hi\n");
+	for(i=0;i<nf;i++)
+	{
+		//printf("%d\n",prime[i]);
+		if((n % prime[i])==0)
+			x++;
+	}
+	//printf("hi2\n");
+	return x;
+}
+
+int co_p(int rg)
+{
+	int sum=rg,i;
+	for(i=0;i<k;i++)
+	{
+		if(no_f[i]%2)
+		{
+			//printf("divisor=%d factor=%d\n",divisors[i],n/divisors[i]); 
+			sum-=(rg/divisors[i]);
+		}
+		else
+		{
+			//printf("divisor=%d factor=%d\n",divisors[i],n/divisors[i]); 
+			sum+=(rg/divisors[i]);
+		}
+	}
+	return sum;
+}
+int main()
+{	
+	int n,t,temp,i;
+	scanf("%d",&t);
+	while(t--)
+	{
+		temp=1;nf=0;
+		scanf("%d%d",&n,&rg);
+		//copy=n;
+		for(i=2;i*i<=n;i++)
+		{
+			if(n%i==0)
+			{
+				temp*=i;
+				prime[nf++]=i;
+				while(n%i==0)
+					n=n/i;
+			}
+		}
+		if(n>1)
+		{
+			prime[nf++]=n;
+			temp*=n;
+		}
+		//for(i=0;i<nf;i++)
+		//	printf("%d ",prime[i]);
+		//printf("\n");
+		n=temp;
+		k=0;
+		for(i=2;i*i<=n;i++)
+		{
+			if(n%i==0)
+			{
+				divisors[k++]=i;
+				if(i*i!=n)
+					divisors[k++]=n/i;
+			}
+		}
+		divisors[k++]=temp;
+		for(i=0;i<k;i++)
+			no_f[i]=get_f(divisors[i]);
+		//printf("%d\n",temp);
+		//for(i=0;i<k;i++)
+		//	printf("%d factors=%d \n",divisors[i],no_f[i]);
+		//printf("\n");
+		printf("%d\n",co_p(rg));
+		
+	}
+	return 0;
+}		

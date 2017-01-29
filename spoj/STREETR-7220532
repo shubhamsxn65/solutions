@@ -1,0 +1,33 @@
+#include<stdio.h>
+int main()
+{
+unsigned long ar[100001],n,i,b[100001],c=0,j,flag=0,min=1000000000;
+scanf("%lu",&n);
+for(i=0;i<n;i++)
+scanf("%lu",&ar[i]);
+for(i=0;i<n-1;i++)
+b[i]=ar[i+1]-ar[i];
+for(i=0;i<n-1;i++)
+{
+if(b[i]<min)
+min=b[i];
+}
+for(i=min;i>=1;i--)
+{
+flag=0;
+for(j=0;j<n-1;j++)
+{
+if(b[j]%i!=0)
+{
+flag=1;
+break;
+}
+}
+if(flag==0)
+break;
+}
+for(j=0;j<n-1;j++)
+c+=((b[j]/i)-1);
+printf("%lu\n",c);
+return 0;
+}

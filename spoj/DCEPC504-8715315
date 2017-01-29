@@ -1,0 +1,24 @@
+#include<stdio.h>
+int main()
+{
+	int t,n,flag;
+	long long k,temp;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d%lld",&n,&k);
+		flag=0;
+		while(k>1)
+		{
+			temp=(k+1)/2;
+			if(2*temp== k)
+				flag=flag?0:1;
+			k=temp;
+		}
+		if(!flag)
+			printf("Male\n");
+		else
+			printf("Female\n");
+	}
+	return 0;
+}

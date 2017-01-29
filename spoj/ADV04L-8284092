@@ -1,0 +1,41 @@
+#include<stdio.h>
+long long fib[1000],ret;
+long long int find(long long int n)
+{
+	for(ret=1;ret<75;ret++)
+	{
+		if(n==fib[ret])
+			return ret;
+		else if(n<fib[ret])
+			return (ret-1);
+	}
+}
+int main()
+{
+	long long int a,b,s,i,ans,sum,ini,t,n,x;
+	a=1;b=1;fib[0]=1;fib[1]=1;
+	for(i=2;i<75;i++)
+	{
+		s=a+b;
+		fib[i]=s;
+		a=b;
+		b=s;
+		
+	}
+	scanf("%lld",&t);
+	while(t--)
+	{
+		scanf("%lld",&n);
+		ini=n;
+		sum=0;ans=0;
+		while(sum!=ini)
+		{
+			x=find(n);//printf("%lld ",fib[x]);
+			n=n-fib[x];
+			sum+=fib[x];
+			ans+=fib[x+1];
+		}
+		printf("%lld\n",ans);
+	}
+	return 0;
+}

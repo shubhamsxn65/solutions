@@ -1,0 +1,50 @@
+#include<stdio.h>
+long long swaps;
+void merge(long long int a[],long long int low,long long int mid,long long int high)
+{
+	long long int lpos=low,rpos=mid+1,pos=0,i;
+	long long int temp[200010];
+	while(lpos<=mid && rpos<=high)
+	{
+		if(a[lpos]<=a[rpos])
+			temp[pos++]=a[lpos++];
+		else
+		{
+			swaps+=mid+1-lpos;
+			temp[pos++]=a[rpos++];
+		}
+	}
+	while(lpos<=mid)
+		temp[pos++]=a[lpos++];
+	while(rpos<=high)
+		temp[pos++]=a[rpos++];
+	for(i=0;i<pos;i++)
+		a[i+low]=temp[i];
+	return ;
+}
+void mergesort(long long int a[],long long int low,long long int high)
+{
+	if(low<high)
+	{
+		int mid=(low+high)/2;
+		mergesort(a,low,mid);//printf("HI\n");printf("low= %d mid= %d high=%d\n",low,high,mid);
+		mergesort(a,mid+1,high);
+		merge(a,low,mid,high);
+	}
+	return ;
+}
+int main()
+{
+	long long int n,t,i,a[200010];
+	scanf("%lld",&t);
+	while(t--)
+	{
+		scanf("%lld",&n);
+		for(i=0;i<n;i++)
+		scanf("%lld",a+i);
+		swaps=0;
+		mergesort(a,0,n-1);
+		printf("%lld\n",swaps);
+	}
+	return 0;
+}

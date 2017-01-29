@@ -1,0 +1,19 @@
+#include<stdio.h>
+#include<math.h>
+long long int fun(long long int n)
+{
+	if(n==1 || n==0)
+		return n;
+	else if (n&1)
+		return (2*fun(n/2))+(n/2)+1;
+	else
+		return (2*fun(n/2))+(n/2);
+}
+int main()
+{
+	long long int a,b,ans;
+	scanf("%lld%lld",&a,&b);
+	ans=fun(b)-fun(a-1);
+	printf("%lld\n",ans);
+	return 0;
+}

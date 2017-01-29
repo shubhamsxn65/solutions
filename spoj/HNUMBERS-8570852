@@ -1,0 +1,79 @@
+#include<stdio.h>
+int nf,rg,k,divisors[1000],prime[100],no_f[1000],ans;
+int get_f(int n)
+{
+	int x=0,i;
+	for(i=0;i<nf;i++)
+		if((n % prime[i])==0)
+			x++;
+	return x;
+}
+
+int co_p(int rg)
+{
+	int sum=rg,i;
+	for(i=0;i<k;i++)
+	{
+		if(no_f[i]%2)
+			sum-=(rg/divisors[i]);
+		else
+			sum+=(rg/divisors[i]);
+	}
+	return sum;
+}
+int get_int()
+{
+	char c;
+	ans=0;
+	c=getc_unlocked(stdin);
+	while(c>32)
+	{
+		ans=ans*10 +(c-48);
+		c=getc_unlocked(stdin);
+	}
+	return ans;
+}
+		
+int main()
+{	
+	int n,t,temp,i;
+	t=get_int();
+	while(t--)
+	{
+		temp=1;nf=0;
+		n=get_int();
+		rg=get_int();
+		for(i=2;i*i<=n;i++)
+		{
+			if(n%i==0)
+			{
+				temp*=i;
+				prime[nf++]=i;
+				while(n%i==0)
+					n=n/i;
+			}
+		}
+		if(n>1)
+		{
+			prime[nf++]=n;
+			temp*=n;
+		}
+		n=temp;
+		k=0;
+		for(i=2;i*i<=n;i++)
+		{
+			if(n%i==0)
+			{
+				divisors[k++]=i;
+				if(i*i!=n)
+					divisors[k++]=n/i;
+			}
+		}
+		divisors[k++]=temp;
+		for(i=0;i<k;i++)
+			no_f[i]=get_f(divisors[i]);
+		printf("%d\n",co_p(rg));
+		
+	}
+	return 0;
+}		

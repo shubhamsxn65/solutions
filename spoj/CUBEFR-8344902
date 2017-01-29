@@ -1,0 +1,36 @@
+#include<stdio.h>
+int pos[1000000];	
+int main()
+{
+	int a[1000000]={0},i,j,l=1,p;
+	int k=1;
+	for(i=2;i<=100;i++)
+		for(j=i*i*i;j<=1000000;j+=(i*i*i))
+				a[j]=1;
+	for(i=2;i<=1000000;i++)
+	{
+		if(!a[i])
+			k++;
+		pos[i]=k;
+	}
+	int t,n;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d",&n);
+		printf("Case %d: ",l++);
+		if(n==1)
+		{
+			printf("1\n");
+			continue;
+		}
+		if(a[n])
+		{
+			printf("Not Cube Free\n");
+			continue;
+		}
+		printf("%d\n",pos[n]);
+	}
+	return 0;
+}
+	

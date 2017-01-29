@@ -1,0 +1,60 @@
+#include<stdio.h>
+struct node{
+	long long res;
+	long long flag;
+}tree[300010];
+void update(long long node,long long b,long long  e,long long  i,long long  j,long long val)
+{
+	if(b>e || b>j || i>e || i>j)
+		return ;
+	if(b>=i && e<=j)
+	{
+		tree[node].res+=(e-b+1)*val;
+		tree[node].flag+=val;
+		return ;
+	}
+	update(node*2 ,b,(b+e)/2,i,j,val);
+	update(node*2 +1,((b+e)/2)+1,e,i,j,val);
+	tree[node].res=(tree[node*2].res +tree[(node*2) +1].res + (e-b+1)*tree[node].flag);
+}
+
+long long querry(long long node,long long  b,long long  e,long long  i,long long  j,long long offst)
+{
+	if(b>e || b>j || i>e || i>j)
+		return 0;
+	if(b>=i && e<=j)
+		return tree[node].res + (e-b+1)* offst;
+	offst+=(tree[node].flag);
+	return (querry(node*2 ,b,(b+e)/2,i,j,offst)+querry(node*2 +1 ,(b+e)/2+1,e,i,j,offst));
+}
+int main()
+{
+	long long t,n,p,q,c,v,d,i;
+	scanf("%lld",&t);
+	while(t--)
+	{
+		scanf("%lld%lld",&n,&c);
+		for(i=0;i<=300000;i++)
+		{
+			tree[i].flag=0;
+			tree[i].res=0;
+		}
+		while(c--)
+		{
+			scanf("%lld",&d);
+			if(d==0)
+			{
+				scanf("%lld%lld%lld",&p,&q,&v);
+				update(1,1,n,p,q,v);
+			}
+			else
+			{
+				scanf("%lld%lld",&p,&q);
+				printf("%lld\n",querry(1,1,n,p,q,0));
+				
+			}
+		}
+	}
+	return 0;
+}
+	

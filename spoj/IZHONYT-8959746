@@ -1,0 +1,36 @@
+#include<stdio.h>
+int hash[800010];
+int main()
+{
+	int out[800010],inp[800010],max;
+	int n,qpos,count,i;
+	scanf("%d%*d",&n);
+	for(i=0;i<n;i++)
+		scanf("%d",&inp[i]);
+	count=0;
+	qpos=1;
+	while(count!=n)
+	{
+		i=0;
+		max=0;
+		while(i!=n)
+		{
+			if(max<inp[i] && !hash[inp[i]])
+			{
+				max=inp[i];
+				count++;
+				hash[inp[i]]=qpos;
+				out[i]=qpos;
+			}
+			i++;
+		}
+		qpos++;
+	}
+	for(i=0;i<n;i++)
+		printf("%d ",out[i]);
+	printf("\n");
+	for(i=1;i<=n;i++)
+		printf("%d ",hash[i]);
+	printf("\n");
+	return 0;
+}			

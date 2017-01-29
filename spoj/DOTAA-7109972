@@ -1,0 +1,66 @@
+#include<stdio.h>
+#include<stdlib.h>
+void sort (int*a,int m)
+{
+	int i,n,p,t,j;
+	for (i=0;i<m;i++)
+	{
+		n=a[i];
+		p=i;
+		for(j=i+1;j<m;j++)
+		{
+			if(a[j]<n)
+			{
+				n=a[j];
+				p=j;
+			}
+		}
+		t=a[i];
+		a[i]=n;
+		a[p]=t;
+	}
+	return;
+}
+
+
+int main()
+{
+	int *a,t,n,m,d,i,c,flag;
+	scanf("%d",&t);
+	while(t>0)
+	{	
+		scanf("%d%d%d",&n,&m,&d);
+		a=(int*)malloc(n*sizeof(int));
+		for(i=0;i<n;i++)
+			scanf("%d",&a[i]);
+		sort(a,n);
+		c=0;flag=0;
+		for(i=1;i<=m;i++)
+		{
+			if ((a[c]-d)>0)
+				a[c]=a[c]-d;
+			else if((a[c]-d)<=0)
+			{	while(1)
+				{
+					if(c==n-1)
+					{	
+						flag=1;
+						break;
+					}
+					c++;
+					if((a[c]-d)>0)
+					{
+						a[c]=a[c]-d;
+						break;
+					}
+				}
+			}
+		}
+		if(flag)
+			printf("NO\n");
+		else
+			printf("YES\n");
+		t--;
+	}
+	return 0;
+}

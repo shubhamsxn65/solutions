@@ -1,0 +1,24 @@
+#include<stdio.h>
+int rev(int x);
+int main()
+{
+        int n,a,b,i,x;
+        scanf("%d",&n);
+        for(i=1;i<=n;i++)
+        {       x=0;
+                scanf("%d%d",&a,&b);
+                x=(rev(a)+rev(b));
+                printf("%d\n",rev(x));
+        }
+        return 0;
+}
+ 
+int rev(int x)
+{      
+        int i,s=0;
+        for(i=x;i>0;i/=10)
+        {
+                s=(s*10)+(i%10);
+        }
+        return s;
+}

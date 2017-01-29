@@ -1,0 +1,25 @@
+#include<stdio.h>
+int main()
+{
+	int t,n,m,x,i,k=1;
+	scanf("%d",&t);
+	while(t--)
+	{
+		m=1;
+		scanf("%d",&n);
+		for(i=0;i<n;i++)
+		{
+			scanf("%d",&x);
+			m*=x;
+		}
+		m++;
+		for(i=2;i*i<=m;i++)
+		{
+			while(m%i==0)
+				m=m/i;
+		}
+		if(m>1)
+			printf("Case #%d: %d\n",k++,m);
+	}
+	return 0;
+}

@@ -1,0 +1,85 @@
+#include<cstdio>
+#include<vector>
+#include<algorithm>
+
+#define edge pair<int,int> 
+
+using namespace std;
+class Graph
+{
+	int v,e,*rank,*parent,total;
+	vector< pair < int , edge > > G;
+	public:
+		Graph(int v,int e)
+		{
+			this->v=v;
+			this->e=e;
+			rank = new int [v];
+			parent = new int [v];
+			for(int i=0;i<v;i++)
+			{
+				parent[i]=i;
+				rank[i]=1;
+			}
+			total=0;
+		}
+		int findset(int x)
+		{
+		 	if(x!=parent[x])
+		 		parent[x]=findset(parent[x]);
+		 	return parent[x];
+		}
+		void addEdge(int u,int v,int w)
+		{
+			G.push_back(pair< int, edge >(w, edge(u, v)));
+		}
+		void kruskal(void)
+		{
+			sort(G.begin(),G.end());
+			for(int i=0;i<e;i++)
+			{
+				int u=G[i].second.first;
+				int v=G[i].second.second;
+				int pu=findset(u);
+				int pv=findset(v);
+				if(pu!=pv)
+				{
+					merge(pu,pv);
+					total+=G[i].first;
+				}
+			}
+		}
+		void merge(int x,int y)
+		{
+			if(rank[x]>rank[y])
+				parent[y]=x;
+			else
+				parent[x]=y;
+			if(rank[x]==rank[y])
+				rank[y]++;
+		}
+		int cost(void)
+		{
+			return total;
+		}
+};
+
+
+int main()
+{
+	int e,v,t,p,x,y,w;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d%d%d",&p,&v,&e);
+		Graph G(v,e);
+		while(e--)
+		{
+			scanf("%d%d%d",&x,&y,&w);
+			G.addEdge(x-1,y-1,w);
+		}
+		G.kruskal();
+		printf("%d\n",p*(G.cost()));
+	}
+	return 0;
+}

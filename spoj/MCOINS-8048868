@@ -1,0 +1,32 @@
+#include<stdio.h>
+int main()
+{
+	int k,l,m,a[60],i,max=-1;
+	long long int c[1000010]={0};	
+	scanf("%d%d%d",&k,&l,&m);
+	for(i=0;i<m;i++)
+	{
+		scanf("%lld",a+i);
+		if(a[i]>max)
+			max=a[i];
+	}
+	for(i=0;i<=max;i++)
+	{
+		if(!c[i])	
+		{
+			c[i+1]=1;
+			c[i+k]=1;
+			c[i+l]=1;
+		}
+	}
+	for(i=0;i<m;i++)
+	{
+		if(c[a[i]])
+			printf("A");
+		else
+			printf("B");
+	}
+	return 0;
+}
+		
+	

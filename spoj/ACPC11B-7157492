@@ -1,0 +1,65 @@
+#include<stdio.h>
+#include<stdlib.h>
+void sort(long int*a,int m)
+{
+	long int i,p,n,t,j;
+	for (i=0;i<m;i++)
+	{
+		n=a[i];
+		p=i;
+		for(j=i+1;j<m;j++)
+		{
+			if(a[j]<n)
+			{
+				n=a[j];
+				p=j;
+			}
+		}
+		t=a[i];
+		a[i]=n;
+		a[p]=t;
+	}
+}
+
+
+
+int main()
+{
+	int t,n1,n2,i,j;
+	long int *a1,*a2,m,m1;
+	scanf("%d",&t);
+	while(t>0)
+	{
+		scanf("%d",&n1);
+		a1=(long int*)malloc(n1*sizeof(long int));
+		for(i=0;i<n1;i++)
+			scanf("%ld",(a1+i));
+		scanf("%d",&n2);
+		a2=(long int*)malloc(n2*sizeof(long int));
+		for(i=0;i<n2;i++)
+			scanf("%ld",(a2+i));
+		sort(a1,n1);
+		sort(a2,n2);
+		m=a1[0]-a2[0];
+		if(m<0)
+			m=(-m);
+		for(i=0;i<n1;i++)
+		{
+			for(j=0;j<n2;j++)
+			{	
+				m1=a1[i]-a2[j];
+				if(m1<0)
+					m1=(-m1);
+				if(m>m1)
+					m=m1;
+				if(m==0)
+					break;
+			}
+			if(m==0)
+				break;
+		}
+		printf("%ld\n",m);
+		t--;
+	}
+	return 0;
+}

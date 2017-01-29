@@ -1,0 +1,49 @@
+#include<cstdio>
+#include<algorithm>
+#include<cstring>
+#define INF 6000
+using namespace std;
+int n,dp[5010][5010],pos[5010];
+char a[5010];
+int fun(int idx,int sum_left)
+{
+	if(idx==n)
+	{
+		if(sum_left==0)
+			return 0;
+		return INF;
+	}
+	if(dp[idx][sum_left]!=-1)
+		return dp[idx][sum_left];
+	int num=0,ans=INF;
+	for(int i=pos[idx];i<n;i++)
+	{
+		num = num*10 + a[i]-'0';
+		if(num>sum_left)
+			break;
+		ans=min(ans,1+fun(i+1,sum_left-num));
+	}
+	dp[idx][sum_left]=ans;
+	return ans;
+}
+int main()
+{
+	
+	scanf("%s",a);
+	int l=strlen(a);
+	int s=0,i;
+	for(i=0;a[i]!='=';i++);
+	n=i;
+	a[i++]='\0';
+	for(;i<l;i++)
+		s=s*10+(a[i]-'0');
+	memset(dp,-1,sizeof(dp));
+	pos[n-1]=n-1;
+	for(int i=n-2;i>=0;i--)
+		if(a[i]=='0')
+			pos[i]=pos[i+1];
+		else
+			pos[i]=i;
+	printf("%d\n",fun(0,s)-1);
+	return 0;
+}

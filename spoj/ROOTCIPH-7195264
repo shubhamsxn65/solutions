@@ -1,0 +1,14 @@
+#include<stdio.h>
+int main()
+{
+	long long t,a,b,c,m;
+	scanf("%lld",&t);
+	while(t>0)
+	{
+		scanf("%lld%lld%lld",&a,&b,&c);
+		m=(a*a)-(2*b);
+		printf("%lld\n",m);
+		t--;
+	}
+	return 0;
+}

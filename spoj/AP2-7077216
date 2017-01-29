@@ -1,0 +1,22 @@
+#include<stdio.h>
+int main()
+{
+	long long int t,lt,s,n,d,i,a;
+	int c,j;
+	scanf("%d",&c);
+	for(j=1;j<=c;j++)
+	{
+		scanf("%lld%lld%lld",&t,&lt,&s);
+		n=((2*s)/(t+lt));
+		d=((lt-t)/(n-5));
+		a=t-(2*d);
+		printf("%lld\n",n);
+		for(i=0;i<n;i++)
+		{
+			printf("%lld ",(a+(i*d)));
+		}
+		printf("\n");
+	}
+	return 0;
+}
+

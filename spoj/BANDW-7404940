@@ -1,0 +1,26 @@
+#include<stdio.h>
+#include<stdio.h>
+int main()
+{
+	char a[510],b[510];
+	int i,c,l;
+	while(scanf("%s",a) && a[0]!='*')
+	{
+		scanf("%s",b);c=0;
+		l=strcmp(a,b);
+		if(l)
+		for(i=0;a[i];i++)
+		{
+			while(a[i]==b[i]){i++;if(!a[i])break;}
+			if(!a[i])break;
+			if(a[i]!=b[i])
+			{
+				c++;
+				while(a[i]!=b[i]){i++;if(!a[i])break;}
+				if(!a[i])break;
+			}
+		}
+		printf("%d\n",c);
+	}
+	return 0;
+}

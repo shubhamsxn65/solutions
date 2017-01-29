@@ -1,0 +1,81 @@
+#include<cstdio>
+#include<algorithm>
+#include<vector>
+#include<cstdlib>
+#include<cstring>
+#include<string>
+#include<map>
+#include<iostream>
+#include<sstream>
+#include<cmath>
+
+using namespace std;
+
+#define MP make_pair
+#define PB push_back
+#define MOD 1000000000
+#define MAX 1010
+#define INF 999999999
+#define X first
+#define Y second
+
+typedef pair<int,int> pii;
+typedef pair< int, pii  > edge;
+double dp[50000];
+int arr[20],n,x;
+bool possible(int x,int y,int z)
+{
+	if(x+y>=z || x+z>=y || y+z>=x)
+		return true;
+	return false;
+}
+double area(int x,int y,int z)
+{
+	double ans=(x+y+z)/2.0,a,b;
+	a=ans*(ans-x);
+	b=(ans-y)*(ans-z);
+	ans=sqrt(a)*sqrt(b);
+	return ans;
+}
+double fun(int mask)
+{	
+	if(__builtin_popcount(mask)==(3*(n/3)))
+		return 0;
+	double ans=0;
+	if(dp[mask]!=-1)
+		return dp[mask];
+	for(int i=0;i<n;i++)
+		if(!(mask & (1<<i)))
+		for(int j=i+1;j<n;j++)
+			if(!(mask & (1<<j)))
+			for(int k=j+1;k<n;k++)
+				if( !(mask & (1<<k)))
+					if(arr[i]+arr[j]>=arr[k])
+					{
+						//printf("%d %d %d\n",i,j,k);
+						int temp=mask;
+						temp|=1<<i;
+						temp|=1<<j;
+						temp|=1<<k;
+						ans=max(ans,area(arr[i],arr[j],arr[k])+fun(temp));
+					}
+	return dp[mask]=ans;
+}
+						
+int main()
+{
+	int t;
+	scanf("%d",&t);
+	while(t--)
+	{
+		for(int i=0;i<50000;i++)
+			dp[i]=-1;
+		scanf("%d",&n);
+		for(int i=0;i<n;i++)
+			scanf("%d",arr+i);
+		sort(arr,arr+n);
+		printf("%lf\n",fun(0));
+	}
+	return 0;
+}
+	

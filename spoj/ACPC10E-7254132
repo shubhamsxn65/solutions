@@ -1,0 +1,23 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	long long int g,t,a,d,x,y,n,s,i;
+	while((scanf("%lld%lld%lld%lld",&g,&t,&a,&d)) && (g!=-1))
+	{	n=0;
+		n=(t*(t-1)/2)*g;
+		s=(g*a)+d;
+		for(i=0;;i++)
+		{	x=pow(2,i);
+			if(x>=s)
+			{
+				s=x;
+				break;
+			}
+		}
+		n=n+(s-1);
+		y=x-(g*a)-d;
+		printf("%lld*%lld/%lld+%lld=%lld+%lld\n",g,a,t,d,n,y);
+	}
+	return 0;
+}

@@ -1,0 +1,46 @@
+#include<iostream>
+#include<cstdio>
+#include<algorithm>
+
+using namespace std;
+int main()
+{
+	int i,t,a[10010],n,m;
+	long long col,mincol,minbag,bag;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d%d",&n,&m);
+		for(i=0;i<m;i++)
+			scanf("%d",a+i);
+		bag=n-1;
+		minbag=n-1;
+		col=1;
+		mincol=1;
+		for(i=1;i<m;i++)
+		{
+			if(a[i]==a[i-1])
+				col-=1;
+			else
+			{
+				col+=(long long)(a[i]-a[i-1]);
+				bag-=(long long)(a[i]-a[i-1]);
+			}
+				minbag=min(bag,minbag);
+				mincol=min(col,mincol);
+				
+		}
+		if(mincol>0 && minbag>=0)
+		{
+			printf("1\n");
+			continue;
+		}
+		if(2-mincol>n||minbag+mincol<0||minbag<0)
+		{
+			printf("-1\n");
+			continue;
+		}
+		printf("%lld\n",2-mincol);
+	}
+	return 0;
+}

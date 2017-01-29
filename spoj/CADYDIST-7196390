@@ -1,0 +1,58 @@
+#include<stdio.h>
+#include<stdlib.h>
+void mergesort(unsigned long long int a[], unsigned long long int low, unsigned long long int high)
+ { 
+ unsigned long long int i = 0;
+ unsigned long long int length = high - low + 1; 
+ unsigned long long int pivot  = 0; 
+ unsigned long long int merge1 = 0; 
+ unsigned long long int merge2 = 0; 
+ unsigned long long int working[length]; 
+  if(low == high)  
+  	return;  
+  pivot  = (low + high) / 2; 
+   mergesort(a, low, pivot);
+    mergesort(a, pivot + 1, high); 
+      for(i = 0; i < length; i++)  
+      working[i] = a[low + i]; 
+       merge1 = 0; 
+       merge2 = pivot - low + 1; 
+        for(i = 0; i < length; i++) 
+        {  
+        if(merge2 <= high - low)   
+        if(merge1 <= pivot - low)    
+        if(working[merge1] > working[merge2]) 
+            a[i + low] = working[merge2++];  
+              else     a[i + low] = working[merge1++]; 
+                else    a[i + low] = working[merge2++];
+                  else   a[i + low] = working[merge1++];
+     }
+     }
+int main()
+{
+	unsigned long long int *c,*p,s,i,j,n;
+	do
+	{
+		scanf("%llu",&n);
+		if(n)
+		{
+			c=(unsigned long long int*)malloc(n*(sizeof(unsigned long long int)));
+			p=(unsigned long long int*)malloc(n*(sizeof(unsigned long long int)));
+			for(i=0;i<n;i++)
+				scanf("%llu",(c+i));
+			for(i=0;i<n;i++)
+				scanf("%llu",(p+i));
+			mergesort(c,0,n-1);
+			mergesort(p,0,n-1);
+			s=0;
+			j=n-1;
+			for(i=0;i<n;i++)
+			{
+				s=s+(c[j]*p[i]);
+				j--;
+			}
+			printf("%lld\n",s);
+		}
+	}while(n);
+	return 0;
+}

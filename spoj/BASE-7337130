@@ -1,0 +1,55 @@
+#include<stdio.h>
+#include<math.h>
+#include<string.h>
+int main()
+{
+	char a[20];
+	int o[7]={32};
+	int f,i,l,j,c,t;
+	unsigned long long int s,p;
+	while(scanf("%s",a)!=EOF)
+	{
+		scanf("%d%d",&f,&t);
+		l=strlen(a);
+		s=0;j=0;
+		for(i=l-1;i>=0;i--)
+		{
+			if(a[i]>47 && a[i]<58)
+				a[i]-=48;
+			if(a[i]>64)
+				a[i]-=55;
+			s=s+a[i]*(pow(f,j));
+			j++;
+		}
+		for(i=0;s>=pow(t,i);i++);
+		i--;
+		for(c=0,j=0;i>=0 && c<8;)
+		{
+			p=pow(t,i);
+			o[j]=s/p;
+			c++;
+			s=s%p;
+			i--;
+			j++;
+		}
+		if(c>7)
+		{
+			printf("  ERROR\n");
+			continue;
+		}
+		for(i=1;i<=7-c;i++)
+			printf(" ");
+		for(j=0;j<c;j++)
+		{
+			
+			if(o[j]>9)
+				o[j]+=55;
+			else
+				o[j]+=48;
+			printf("%c",o[j]);
+			
+		}
+		printf("\n");
+	}
+	return 0;
+}

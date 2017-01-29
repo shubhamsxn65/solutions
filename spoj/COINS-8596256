@@ -1,0 +1,26 @@
+#include<stdio.h>
+long long store[10000010];
+long long call(long long int n)
+{
+	long long x;
+	if(n<=10000000 && store[n])
+		return store[n];
+	if(n==0)
+		return 0;
+	else 
+	{	
+		x=call(n/2) + call(n/3) + call(n/4);
+		if(n<=10000000)
+			store[n]=x>n?x:n;
+		return x>n?x:n;
+	}
+}
+int main()
+{
+	long long n;
+	while(scanf("%lld", &n)!=EOF){
+		printf("%lld\n",call(n));
+		//printf("%d %d %d\n",store[3],store[4],store[6]);
+	}
+	return 0;
+}

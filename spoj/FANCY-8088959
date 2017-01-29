@@ -1,0 +1,29 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	long long int t,sum,i,c,prev;
+	char a[100];
+	scanf("%llu\n",&t);
+	while(t--)
+	{
+		sum=1;
+		gets(a);
+		for(i=0;a[i];)
+		{
+			prev=a[i];
+			c=0;
+			while(a[i]==prev && a[i])
+			{
+				c++;
+				i++;
+			}
+			if(c)
+				sum*=(long long int)pow(2,c-1);
+			if(!a[i])
+				break;
+		}
+		printf("%llu\n",sum);
+	}
+	return 0;
+}

@@ -1,0 +1,48 @@
+#include<stdio.h>
+int main()
+{
+	int t,x,n,i,k=0,j;
+	scanf("%d",&t);
+	while(t--)
+	{	
+		int count[1010]={0};
+		long long ans=0,c;
+		int max=-1,min=111111;
+		scanf("%d",&x);
+		scanf("%d",&n);
+		for(i=0;i<n;i++)
+		{
+			scanf("%d",&j);
+			if(j>max)
+				max=j;
+			if(j<min)
+				min=j;
+			count[j]++;
+		}
+		j=max;
+		i=min;	
+		while(i<j)
+		{	
+				if((i+j)==x)
+				{
+					ans+=(count[i]*count[j]);
+					i++;
+					j--;
+				}
+				else if((i+j)>x)
+					j--;
+				else if((i+j)<x)
+					i++;
+		}
+
+		if(!(x&1))
+		{
+			c=count[x/2];
+			if(c>0)
+				ans+=(((c-1)*(c))/2);
+		}
+		printf("%d. %lld\n",++k,ans);
+	}
+	return 0;
+}
+				

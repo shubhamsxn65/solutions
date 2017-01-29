@@ -1,0 +1,60 @@
+#include<cstdio>
+#include<algorithm>
+#include<vector>
+using namespace std;
+#define MP make_pair
+#define PB push_back
+#define MOD 1000000000
+#define MAX 100009
+#define X first
+#define Y second
+
+typedef pair<int,int> pii;
+typedef pair< int, pii  > edge;
+vector< edge > v;
+int par[MAX];
+
+int find_set(int x)
+{
+	if(x!=par[x])
+		par[x]=find_set(par[x]);
+	return par[x];
+}
+long long sum[MAX],cnt[MAX];
+int main()
+{
+	int n,m,w,u,y;
+	scanf("%d%d",&n,&m);
+	for(int i=0;i<m;i++)
+	{
+		scanf("%d%d%d",&u,&y,&w);
+		v.PB(MP(w,MP(u,y)));
+	}
+	sort(v.begin(),v.end());
+	sum[0]=m>0?v[0].X:0;
+	for(int i=1;i<m;i++)
+		sum[i]= v[i].X + sum[i-1];
+	for(int i=1;i<=n;i++)
+	{
+		par[i]=i;
+		cnt[i]=1;
+	}
+	long long ans =0;
+	for(int i=v.size()-1;i>=0;i--)
+	{
+		int pu=find_set(v[i].Y.X);
+		int pv=find_set(v[i].Y.Y);
+		//printf("%d %d %d %d %d\n",pu,pv,cnt[pu],cnt[pv],sum[i]);
+		if(pu!=pv)
+		{
+			
+			ans=(ans+ (cnt[pu]*cnt[pv]*sum[i]))%MOD;
+			//printf("%lld\n",ans);
+			par[pu]=par[pv];
+			cnt[pv]+=cnt[pu];
+			
+		}
+	}
+	printf("%lld\n",ans);
+	return 0;
+}

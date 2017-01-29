@@ -1,0 +1,24 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{ 
+        float g,t,r,v;
+        int k=1;
+        scanf("%f",&t);
+        while(t--)
+        {
+                scanf("%f%f",&r,&v);
+                printf("Scenario #%d: ",k++);
+                g=9.806;
+                r=((float)g*r/(float)(v*v));
+                if(r>1 || r<-1)
+                {
+                        printf("-1\n");
+                        continue;
+                }
+                r=(float)(asin(r))/(float)2.000000;
+                r=((float)180*r)/((float)(acos(0.0)))/2;
+                printf("%.2f\n",r);
+        }
+        return 0;
+}

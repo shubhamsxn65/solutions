@@ -1,0 +1,43 @@
+#include<stdio.h>
+#define mod 10000007
+long long ans;
+long long int mypow(long long int base,long long int pow)
+{
+	if(base==1)
+		return 1;
+	if(pow==1)
+		return base;
+	if(!pow)
+		return 1;
+	long long ans=mypow(base,pow/2);
+	if(pow & 1)
+		return (base*((ans*ans)%mod))%mod;
+	else
+		return (ans*ans)%mod;
+}
+
+long long int get_int()
+{
+	char ch;
+	ans=0;
+	ch=getc_unlocked(stdin);
+	while(ch>47 && ch<58)
+	{
+		ans=(ans*10)+(ch-48);
+		ch=getc_unlocked(stdin);
+	}
+	return ans;
+}
+int main()
+{
+	long long int n,k;
+	while(1)
+	{
+		n=get_int();
+		k=get_int();
+		if(!n&&!k)
+			break;
+		printf("%lld\n",((mypow(n,k)+mypow(n,n))+(2*mypow(n-1,k))+(2*mypow(n-1,n-1)))%mod);
+	}
+	return 0;
+}

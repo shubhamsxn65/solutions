@@ -1,0 +1,55 @@
+#include<cstdio>
+//#include<algorithm>
+#include<vector>
+#include<cstdlib>
+#include<cstring>
+#include<string>
+#include<map>
+#include<iostream>
+#include<sstream>
+
+using namespace std;
+
+#define MP make_pair
+#define PB push_back
+#define MOD 1000000000
+#define MAX 1010
+#define INF 999999999
+#define X first
+#define Y second
+
+typedef pair<int,int> pii;
+typedef pair< int, pii  > edge;
+int arr[105][105],dp[105][105];
+int main()
+{
+	int n,m,k;
+	scanf("%d%d%d",&n,&m,&k);
+	char x[102];
+	for(int i=1;i<=n;i++)
+	{
+		scanf("%s",x);
+		for(int j=0;j<m;j++)
+			arr[i][j+1]=x[j];
+	}
+	int ans=0;
+	for(int i1=1;i1<=n;i1++)
+		for(int j1=1;j1<=m;j1++)
+		{
+			memset(dp,0,sizeof(dp));
+			for(int i2=i1;i2<=n;i2++)
+				for(int j2=j1;j2<=m;j2++)
+				{
+					dp[i2][j2]=dp[i2-1][j2]|dp[i2][j2-1]|(1<<(arr[i2][j2]-'A'));
+					int flag=__builtin_popcount(dp[i2][j2]);
+					//printf("%d ",__builtin_popcount(arr[i2][j2]);
+					if(flag==k)
+					{
+						//printf("%d %d %d %d\n",i1,j1,i2,j2);
+						ans++;
+					}
+				}
+		}
+	printf("%d\n",ans);
+	return 0;
+}

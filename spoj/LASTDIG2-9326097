@@ -1,0 +1,24 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	char p[1010];
+	long long int b;
+	int a,t,m;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%s%llu",p,&b);
+		a=p[strlen(p)-1]-48;
+		m=1;
+		if(a==2||a==3||a==7||a==8)
+			m=4;
+		if(a==4||a==9)
+			m=2;
+		if(b%m|| !b)
+			m=b%m;
+		a=pow(a,m);
+		printf("%d\n",a%10);
+	}
+	return 0;
+}

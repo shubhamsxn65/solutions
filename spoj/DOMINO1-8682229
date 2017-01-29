@@ -1,0 +1,91 @@
+#include<stdio.h>
+#include<string.h>
+void Merge(int * , int , int , int );
+void MergeSort(int *array, int left, int right)
+{
+        int mid = (left+right)/2;
+        if(left<right)
+        {
+                MergeSort(array,left,mid);
+                MergeSort(array,mid+1,right);
+                Merge(array,left,mid,right);
+        }
+}
+
+void Merge(int *array, int left, int mid, int right)
+{
+        int tempArray[right-left+1];
+        int pos=0,lpos = left,rpos = mid + 1;
+        while(lpos <= mid && rpos <= right)
+        {
+                if(array[lpos] < array[rpos])
+                {
+                        tempArray[pos++] = array[lpos++];
+                }
+                else
+                {	
+                        tempArray[pos++] = array[rpos++];
+                }
+        }
+        while(lpos <= mid)  tempArray[pos++] = array[lpos++];
+        while(rpos <= right)tempArray[pos++] = array[rpos++];
+        int iter;
+        for(iter = 0;iter < pos; iter++)
+        {
+                array[iter+left] = tempArray[iter];
+        }
+        return;
+}
+int main()
+{
+	long long int ans,p,q,maxg,maxb;
+	char a[1010];
+	int bg[104],gb[104],t,n,l,i;
+	//scanf("%d",&t);
+	//while(t--)
+	//{
+		ans=0;p=0;q=0;
+		maxb=0;maxg=0;
+		scanf("%d",&n);
+		while(n--)
+		{
+			scanf("%s",a);
+			l=strlen(a);
+			if(a[0]==a[l-1])
+			{
+				if(a[0]=='B')
+					maxb+=l;
+				else
+					maxg+=l;
+				ans+=l;
+			}
+			else
+			{
+				if(a[0]=='B')
+					bg[p++]=l;
+				else
+					gb[q++]=l;
+				ans+=l;
+			}
+		}
+		if(p>q)
+			MergeSort(bg,0,p-1);
+		else
+			MergeSort(gb,0,q-1);
+		if(p>q)
+		{
+			for(i=0;i<p-q-1;i++)
+				ans-=bg[i];
+		}
+		else if(q>p)
+		{
+			for(i=0;i<q-p-1;i++)
+				ans-=gb[i];
+		}
+		else if(!p && !q)
+			ans=maxb>maxg?maxb:maxg;
+		printf("%lld\n",ans);
+		
+	//}
+	return 0;
+}

@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+int main()
+{
+	char a[100100],b[100100],c[200100],d[200100];
+	int t,i,j;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%s",a);
+		scanf("%s",b);
+		int la=strlen(a);
+		int lb=strlen(b);
+		strcpy(c,a);
+		strcpy(d,b);
+		strcpy(c+la,b);
+		strcpy(d+lb,a);
+		if(!strcmp(c,d))
+			printf("YES\n");
+		else
+			printf("NO\n");
+	}
+	return 0;
+}

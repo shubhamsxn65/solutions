@@ -1,0 +1,98 @@
+#include<iostream>
+#include<cstdio>
+#include<list>
+#include<queue>
+#include<cmath>	
+
+using namespace std;
+
+#define MAX 10000
+#define white -1
+#define black 1
+#define grey 0
+
+int p[MAX+3];
+class Graph
+{
+	int status[10000],level[10000];
+	public:
+		void BFS(int start,int stop)
+		{
+			for(int i=0;i<=10000;i++)
+			{
+				level[i]=0;
+				status[i]=white;
+			}
+			queue<int> Q;
+			Q.push(start);
+			level[start]=0;
+			status[start]=grey;
+			while(!Q.empty())
+			{
+				if(level[stop])
+					break;
+				int node=Q.front();
+				Q.pop();
+				status[node]=black;
+				for(int i=1;i<=4 && !level[stop];i++)
+				{
+					for(int j=0;j<=9 && !level[stop];j++)
+					{	
+						int curr=set(node,i,j);
+						if(status[curr]==white)
+						{
+							if(p[curr]||curr<1000||curr>9999)
+								continue;
+							Q.push(curr);
+							status[curr]=grey;
+							level[curr]=level[node]+1;
+						}
+					}
+				}
+			}
+		}
+		int set(int val,int pos,int no)
+		{
+			int c[4];
+			for(int i=0;i<4;i++)
+			{
+				c[i]=val%10;
+				val=val/10;
+			}
+			val=0;
+			c[pos-1]=no;
+			for(int i=3;i>=0;i--)
+				val=val*10+c[i];
+			return val;
+		}
+		int get_l(int node)
+		{
+			return level[node];
+		}
+		
+}; 
+int main()
+{
+	int i,j,no,t,count=1;
+	for(i=2;i*i<=MAX;i++)
+	{
+		if(!p[i])
+			for(j=i*i;j<=MAX;j+=i)
+				p[j]=1;
+	}
+	j=0;
+	Graph G;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d%d",&i,&j);
+		if(i==j)
+		{
+			printf("0\n");
+			continue;
+		}
+		G.BFS(i,j);
+		printf("%d\n",G.get_l(j));
+	}
+	return 0;
+}

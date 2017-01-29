@@ -1,0 +1,86 @@
+#include<cstdio>
+#include<list>
+#include<algorithm>
+#include<queue>
+#include<vector>
+
+
+using namespace std;
+
+#define MAX 1010
+
+typedef pair< int , int > ii;
+list < ii > *adj;
+int *visited,inp[MAX],n;
+
+void addEdge(ii f,ii t)
+{
+	adj[f.second].push_back(t);
+}
+void BFS(int node)
+{
+	queue< ii > q;
+	vector < ii > v;
+	int tempV[MAX]={};
+	q.push(make_pair(inp[node],node));
+	visited[node]=0;
+	while(!q.empty())
+	{
+		ii p=q.front();
+		q.pop();
+		visited[p.second]=1;
+		tempV[p.second]=1;
+		list< ii > :: iterator it;
+		v.push_back(p);
+		for(it=adj[p.second].begin();it!=adj[p.second].end();it++)
+		{
+			if(visited[it->second]==-1)
+			{
+				visited[it->second]=0;
+				q.push(*it);
+			}
+		}
+	}
+	sort(v.begin(),v.end());
+	int pos=0;
+	for(int i=0;i<n;i++)
+	{
+		if(tempV[i])
+		{
+			inp[i]=v[pos].first;
+			pos++;
+		}
+	}
+	
+}
+int main()
+{
+	int e,t,i,x,y;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d%d",&n,&e);
+		adj = new list< ii > [n];
+		visited = new int [n];
+		for(i=0;i<n;i++)
+			scanf("%d",inp+i);
+		while(e--)
+		{
+			scanf("%d%d",&x,&y);
+			ii p1(inp[x-1],x-1);
+			ii p2(inp[y-1],y-1);
+			addEdge(p1,p2);
+			addEdge(p2,p1);
+		}
+		for(i=0;i<n;i++)
+			visited[i]=-1;
+		for(i=0;i<n;i++)
+			if(visited[i]==-1)
+				BFS(i);
+		for(i=0;i<n;i++)
+			printf("%d ",inp[i]);
+		printf("\n");
+	}
+	return 0;
+}
+			

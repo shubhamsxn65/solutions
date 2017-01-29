@@ -1,0 +1,41 @@
+#include<cstdio>
+#include<algorithm>
+#define MAX 100005
+using namespace std;
+
+int etf(int n)
+{
+	int val=n;
+	for(int i=2;i*i<=n;i++)
+	{
+		if(n%i==0)
+		{
+			while(!(n%i))
+				n/=i;
+			val-=(val/i);
+		}
+	}
+	if(n>1)
+		val-=(val/n);
+	return val;
+}
+
+int main()
+{
+	int t,n,c=1;
+	long long arr[MAX];
+	arr[1]=0;
+	for(long long int i=2;i<MAX;i++)
+		arr[i]=(i-1)-etf(i);
+	//for(int i=1;i<=10;i++)
+	//	printf("%d ",arr[i]);
+	for(int i=2;i<MAX;i++)
+		arr[i]+=arr[i-1];
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d",&n);
+		printf("Case %d: %lld\n",c++,arr[n]+n-1);
+	}
+	return 0;
+}

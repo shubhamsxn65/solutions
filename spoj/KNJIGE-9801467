@@ -1,0 +1,33 @@
+#include<stdio.h>
+inline int get_int()
+{
+	int a;
+	char ch;
+	int b=0;
+	while (((ch=getchar_unlocked()) < 48 || ch > 57) && ch != '-');
+	a=0;
+	if (ch == '-') 
+		b=1;
+	else 
+		a = ch-48;
+	while ((ch=getchar_unlocked()) >= 48 && ch <= 57) 
+		a=a*10+ch-48;
+	if (b) 
+		return -a;
+	else 
+		return a;
+}
+int main()
+{
+    int a[300010],n,swaps=0,i;
+    n=get_int();
+    for(i=1;i<=n;i++)
+   	 a[i]=get_int();
+    for(i=n;i>0;i--)
+    {
+	    if(a[i]!=(i+swaps))
+	   	 swaps++;
+    }
+    printf("%d\n",swaps);
+    return 0;
+} 

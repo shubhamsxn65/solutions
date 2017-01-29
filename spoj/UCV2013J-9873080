@@ -1,0 +1,18 @@
+#include<stdio.h>
+int main()
+{
+	int i,n,x;
+	long long sum;
+	while(scanf("%d",&n) && n)
+	{
+		sum=0;
+		for(i=1;i<=n;i++)
+		{
+			scanf("%d",&x);
+			if(i>n/2)
+				sum+=x;
+		}
+		printf("%d\n",sum);
+	}
+	return 0;
+}

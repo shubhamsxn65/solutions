@@ -1,0 +1,45 @@
+#include<stdio.h>
+#include<math.h>
+long long int mod(long long int a,char b[],int dig)
+{
+	long long int x=0,i,j;
+	for(i=0;i<dig;i++)
+		x=(x*10)+(b[i]-48);
+	for(j=dig;b[j];j++)
+	{
+		x=(x*10)+(b[j]-48);
+		x=x%a;
+	}
+	return x;
+}
+
+long long int gcd(long long int a,long long int b)
+{
+	if(b==0)
+		return a;
+	else 
+		return gcd(b,a%b);
+}
+
+
+int main()
+{
+	long long int a,b1,t,dig;
+	char b[300];
+	scanf("%lld",&t);
+	while(t--)
+	{
+		scanf("%lld",&a);
+		scanf("%s",b);
+		if(a==0)
+		{
+			printf("%s\n",b);
+			continue;
+		}
+		dig=(log10 (a)) +1;
+		b1=mod(a,b,dig);
+		a=gcd(a,b1);
+		printf("%lld\n",a);
+	}
+	return 0;
+}

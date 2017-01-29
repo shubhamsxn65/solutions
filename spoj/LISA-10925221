@@ -1,0 +1,61 @@
+#include<cstdio>
+#include<algorithm>
+#include<string>
+#include<vector>
+#include<iostream>
+#define INF 999999999999999999LL
+using namespace std;
+
+int main()
+{
+	int t,n	;
+	scanf("%d",&t);
+	vector<int> num;
+	vector<char> op;
+	long long minval[110][110],maxval[110][110];
+	while(t--)
+	{
+		string s;
+		cin>>s;
+		num.clear();
+		op.clear();
+		for(int i=0;i<110;i++)
+			for(int j=0;j<110;j++)
+			{
+				minval[i][j]=INF;
+				maxval[i][j]=0;
+			}
+		for(int i=0;i<s.length();i++)
+		{
+			if(s[i]>='0' && s[i]<='9')
+				num.push_back(s[i]-'0');
+			else
+				op.push_back(s[i]);
+		}
+		int n=num.size();
+		for(int i=0;i<=n;i++)
+			minval[i][i]=maxval[i][i]=num[i];
+		for(int l=2;l<=	n;l++)
+		{
+			for(int i=0;i<n-l+1;i++)
+			{
+				int j=i+l-1;
+				for(int k=i;k<j;k++)
+				{
+					if(op[k]=='+')
+					{
+						minval[i][j]=min(minval[i][j],minval[i][k]+minval[k+1][j]);
+						maxval[i][j]=max(maxval[i][j],maxval[i][k]+maxval[k+1][j]);
+					}
+					else if(op[k]=='*')
+					{
+						minval[i][j]=min(minval[i][j],minval[i][k]*minval[k+1][j]);
+						maxval[i][j]=max(maxval[i][j],maxval[i][k]*maxval[k+1][j]);
+					}
+				}
+			}
+		}
+		printf("%lld %lld\n",maxval[0][n-1],minval[0][n-1]);
+	}
+	return 0;
+}

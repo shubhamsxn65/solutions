@@ -1,0 +1,27 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	unsigned long long int n,i;
+	int flag;
+	while((scanf("%llu",&n))!=EOF)
+	{	flag=0;
+		if(n==0||n==1)
+			flag=1;
+		else
+		{	
+			for(i=1;pow(2,i)<=n;i++)
+				if(pow(2,i)==n)
+				{
+					flag=1;
+					break;
+				}
+		}
+		if(flag)
+			printf("TAK\n");
+		else if (!flag)
+			printf("NIE\n");
+		
+	}
+	return 0;
+}

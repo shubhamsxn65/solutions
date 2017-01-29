@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main()
+{
+	int d,i,t,j;
+	long long int s,c,*a;
+	scanf("%d",&t);
+	for(i=1;i<=t;i++)
+	{	
+		j=getchar();
+		scanf("%lld",&c);
+		a=(long long int*)malloc(c*(sizeof(long long int)));
+		s=0;
+		for(j=0;j<c;j++)
+		{
+			scanf("%lld",(a+j));
+			s=((s+(*(a+j)))%c);
+		}
+		if(s%c==0)
+			printf("YES\n");
+		else
+			printf("NO\n");
+	}
+	return 0;
+}

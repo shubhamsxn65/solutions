@@ -1,0 +1,13 @@
+#include<stdio.h>
+int main()
+{
+	int t;
+	double n;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%lf",&n);
+		printf("%.8lf\n",(2+(1.00/n)));
+	}
+	return 0;
+}

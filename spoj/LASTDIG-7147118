@@ -1,0 +1,37 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	long int b;
+	int a,t;
+	scanf("%d",&t);
+	while(t>0)
+	{
+		scanf("%d%ld",&a,&b);
+		if(b==0)
+			printf("1\n");
+		else if(a==1)
+			printf("1\n");
+		else
+		{
+			b=b%4;
+			a=a%10;
+			if(a==0)
+				printf("0\n");
+			else if(a==5)
+				printf("5\n");
+			else if(a==6)
+				printf("6\n");
+			else
+			{
+				if(b==0)
+					b=4;
+				a=pow(a,b);
+				a=a%10;
+				printf("%d\n",a);
+			}
+		}
+		t--;
+	}
+	return 0;
+}

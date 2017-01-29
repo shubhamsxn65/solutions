@@ -1,0 +1,69 @@
+#include<cstdio>
+#include<queue>
+#include<vector>
+#include<list>
+#include<algorithm>
+#include<stack>
+#include<string>
+#include<iostream>
+#include<cstring>
+#define PB push_back
+#define MP make_pair
+#define X first
+#define Y second
+using namespace std;
+string s;
+void bfs(int n)
+{
+	queue< pair<string,int> > Q;
+	s="1";
+	if(n==1)
+		return ;
+	Q.push(MP("1",1));
+	int vis[n+1];
+	memset(vis,0,sizeof(vis));
+	while(!Q.empty())
+	{
+		pair<string,int> p=Q.front();
+		Q.pop();
+		int temp = p.Y;
+		temp*=10;
+		int rem=temp%n;
+		if(rem==0)
+		{
+			s=p.X+"0";
+			return ;
+		}
+		if(vis[rem]==0)
+		{
+			vis[rem]=1;
+			Q.push(MP(p.X +"0",rem));
+		}
+		rem=(rem+1)%n;
+		if(rem==0)
+		{
+			s=p.X+"1";
+			return ;
+		}
+		if(vis[rem]==0)
+		{
+			vis[rem]=1;
+			Q.push(MP(p.X +"1",rem));
+		}	
+	}
+	return ;
+}
+		
+int main()
+{
+
+	int t,n;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d",&n);
+		bfs(n);
+		cout<<s<<endl;
+	}
+	return 0;
+}

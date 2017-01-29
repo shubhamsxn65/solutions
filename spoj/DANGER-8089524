@@ -1,0 +1,26 @@
+#include<stdio.h>
+int main()
+{
+	long long int n,i,ans;
+	char a[5];
+	while(scanf("%s",a) && !(a[0]==48 && a[1]==48))
+	{
+		n=((a[0]-48)*10 +(a[1]-48));
+		for(i=1;i<=(a[3]-48);i++)
+			n=n*10;
+		//printf("%lld\n",n);
+		//scanf("%lld",&n);
+		if(n==1 || n==2)
+		{
+			printf("1\n");
+			continue;
+		}
+		i=2;
+		while(n>=i)
+			i*=2;
+		i=i/2;
+		ans=((n-i)*2)+1;
+		printf("%lld\n",ans);
+	}
+	return 0;
+}		

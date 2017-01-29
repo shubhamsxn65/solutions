@@ -1,0 +1,14 @@
+#include<stdio.h>
+int main()
+{
+	unsigned long long int n,t,s;
+	scanf("%llu",&t);
+	while(t>0)
+	{
+		scanf("%llu",&n);
+		s=n*(n+2)*((2*n)+1)/8;
+		printf("%llu\n",s);
+		t--;
+	}
+	return 0;
+}	

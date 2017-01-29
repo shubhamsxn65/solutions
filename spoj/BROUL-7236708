@@ -1,0 +1,31 @@
+#include<stdio.h>
+int main()
+{
+	long long int ini,bet,lef,s,p,i;
+	while((scanf("%lld%lld%lld",&ini,&bet,&lef)) && ini!=0)
+	{
+		lef=ini>lef?ini-lef:lef-ini;
+		p=lef%bet;
+		if(p)
+		{
+			printf("No accounting tablet\n");
+			continue;
+		}
+		s=0;
+		p=lef/bet;
+		if(p>=3)
+		{
+		for(i=1;i>0;i++)
+		{
+			p=p-3;
+			if(p<3 || p==0)
+				break;
+		}
+		s=i;
+		}
+		if(p==2 || p==1)
+			s=s+1;
+		printf("%lld\n",s);
+	}
+	return 0;
+}

@@ -1,0 +1,46 @@
+#include<cstdio>
+#include<queue>
+#include<vector>
+#include<list>
+#include<algorithm>
+#include<stack>
+#include<string>
+#include<iostream>
+#include<cstring>
+using namespace std;
+int LCS( string X)
+{
+   int n=X.length();
+   int L[2][n+1];
+   memset(L,0,sizeof(L));
+   string Y=X;
+   reverse(Y.begin(),Y.end());
+   int i, j;
+   for (i=0; i<n; i++)
+   {
+     for (j=0; j<n; j++)
+     {
+       if (X[i] == Y[j])
+         L[1][j+1] = L[0][j] + 1;
+  
+       else
+         L[1][j+1] = max(L[0][j+1], L[1][j]);
+     }
+     for(j=1;j<=n;j++)
+     	L[0][j]=L[1][j];
+   }
+   return L[1][n];
+}
+
+int main()
+{
+	int t;
+	string s;
+	scanf("%d",&t);
+	while(t--)
+	{
+		cin>>s;
+		printf("%d\n",s.length()-LCS(s));
+	}
+	return 0;
+}

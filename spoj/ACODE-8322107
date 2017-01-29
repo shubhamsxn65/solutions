@@ -1,0 +1,48 @@
+#include<stdio.h>
+#include<string.h>
+int l,x,count;
+char a[5010];
+int store[5010];
+void fun(int low)
+{
+	if(store[low])
+	{
+		count+=store[low];
+		return ;
+	}
+	if(!(a[low]-48))
+		return ;
+	if(low==l)
+	{
+		count++;
+		return ;
+	}
+	int b,c;
+	b=a[low]-48;
+	c=a[low+1]-48;
+	b=(b*10)+c;	
+	if(b<=26  && low<=(l-2))//110
+	{	
+		if(b!=10 && b!=20 && b!=0)
+			fun(low+1);
+		fun(low+2);
+	}
+	else
+		fun(low+1);
+	store[low]=count;
+	return ;
+}
+	
+int main(i)
+{
+	while(scanf("%s",a) && a[0]!=48)
+	{	
+		for(i=0;i<5010;i++)
+			store[i]=0;
+		count=0;
+		l=strlen(a);
+		fun(0);
+		printf("%d\n",count);
+	}
+	return 0;
+}

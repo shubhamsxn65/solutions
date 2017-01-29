@@ -1,0 +1,13 @@
+#include<stdio.h>
+int main(t)
+{
+	int n,k;
+	for(scanf("%d",&t);scanf("%d%d",&n,&k),t--;)
+	{
+		if(((n-k)&((k-1)/2))==0)
+			printf("1\n");
+		else
+			printf("0\n");
+	}
+	return 0;
+}

@@ -1,0 +1,25 @@
+#include<cstdio>
+#include<algorithm>
+#include<string>
+#include<vector>
+#include<iostream>
+#define INF 999999999
+using namespace std;
+
+int main()
+{
+	int n;
+	int ans[2][1010]={},w[1010],h[1010];
+	scanf("%d",&n);
+	for(int i=0;i<n;i++)
+		scanf("%d%d",w+i,h+i);
+	ans[0][0]=w[0];
+	ans[1][0]=h[0];
+	for(int i=1;i<n;i++)
+	{
+		ans[0][i]=max(ans[0][i-1]+abs(h[i]-h[i-1])+w[i],ans[1][i-1]+abs(h[i]-w[i-1])+w[i]);
+		ans[1][i]=max(ans[0][i-1]+abs(w[i]-h[i-1])+h[i],ans[1][i-1]+abs(w[i]-w[i-1])+h[i]);
+	}
+	printf("%d\n",max(ans[0][n-1],ans[1][n-1]));
+	return 0;
+}

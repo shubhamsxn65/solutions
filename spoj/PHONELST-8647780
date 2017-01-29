@@ -1,0 +1,65 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int flag;
+	struct node* hash[10];
+}*root=NULL;
+int count;
+struct node * allocate(void)
+{
+	struct node * ptr;
+	int i;
+	ptr=(struct node *)malloc(sizeof(struct node));
+	for(i=0;i<10;i++)
+		ptr->hash[i]=NULL;
+	ptr->flag=0;
+	return ptr;
+}	
+void insert(struct node *root,char *str)
+{
+	int i,c;
+	if(!(*str))
+	{
+		root->flag=1;
+		c=0;
+		for(i=0;i<10;i++)
+			if(root->hash[i]!=NULL)
+				c=1;
+		if(c==1)
+			count=1;
+		return ;
+	}
+	if(root->hash[*(str)-48]==NULL)
+		root->hash[*(str)-48]=allocate();
+	if(root->flag==1)
+	{
+		count=1;
+		return ;
+	}
+	insert(root->hash[*(str)-48],str+1);
+	
+}
+int main()
+{
+	int t,n,i;
+	char p[10010][20];
+	scanf("%d",&t);
+	struct node*root1;
+	while(t--)
+	{
+		scanf("%d",&n);
+		for(i=0;i<n;i++)
+			scanf("%s",p[i]);
+		count=0;
+		root1=allocate();
+		for(i=0;i<n;i++)
+		{
+			if(count==1)
+				break;
+			insert(root1,p[i]);
+		}
+		printf("%s\n",count?"NO":"YES");
+	}
+	return 0;
+}

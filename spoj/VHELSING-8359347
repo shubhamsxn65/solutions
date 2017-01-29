@@ -1,0 +1,14 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	int t,r;
+	scanf("%d",&t);
+	double x=8*(2-pow(2,0.5));
+	while(t--)
+	{
+		scanf("%d",&r);
+		printf("%.4lf\n",x*pow(r,3));
+	}
+	return 0;
+}

@@ -1,0 +1,71 @@
+#include<cstdio>
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<cmath>
+#include<queue>
+
+using namespace std;
+
+int main()
+{
+	int i,k,f,s,g,u,d;//f=no. of floors,s=start,g=goal,u=up,d=down
+	scanf("%d%d%d%d%d",&f,&s,&g,&u,&d);
+	int exit=0;
+	if(s==g)
+	{
+		printf("0\n");
+		return 0;
+	}
+	queue<int> q;
+	vector<int> p(f+1,0);	//visiting flag, initially all are unvisited
+	q.push(s);		//s is the start vertex
+	p[s]=1;			//mark the floor 's' as visited
+	int count=0;
+	while(!q.empty())	//if queue is empty it means all floors reachable has been visited
+	{
+		int flag=0;
+		i=q.front();	//get tail element from the queue
+		q.pop();
+		k=i+u;
+		if(k<=f)
+		{
+			if(k==g)
+			{
+				printf("%d\n",count+1);
+				exit=1;
+				break;
+			}
+			if(!p[k])
+			{
+				p[k]=1;
+				q.push(k);
+				flag=1;
+			}
+		}
+		k=i-d;
+		if(k>=1)
+		{
+			if(k==g)
+			{
+				printf("%d\n",count+1);
+				exit=1;
+				break;
+			}
+			if(!p[k])
+			{
+				p[k]=1;
+				q.push(k);
+				flag=1;
+			}
+		}
+
+		if(flag==1 && exit==0)
+			count++;	// add count if level is visited
+		else if(exit==1)
+			break;
+	}
+	if(exit==0)
+	printf("use the stairs\n");
+	return 0;
+}

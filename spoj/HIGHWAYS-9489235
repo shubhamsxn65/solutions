@@ -1,0 +1,94 @@
+#include<cstdio>
+#include<queue>
+#include<vector>
+#include<list>
+#include<algorithm>
+
+using namespace std;
+
+#define INF 987654321986543LL
+#define tr(c,i) for(typeof((c).begin()) i = (c).begin();i!=(c).end();i++)
+
+typedef pair<long long int,int> ii;
+typedef list<ii> lii;
+typedef vector<long long> vi;
+
+class Graph
+{
+	vi D;
+	lii *adj;
+	int v_no;
+	
+	public:
+		Graph(int v)
+		{
+			this->v_no = v;
+			adj = new lii[v];
+		}
+		void addEdge(int from,int to,int w)
+		{
+			adj[from].push_back(ii(w,to));
+		}
+		void set(void)
+		{
+			D=vi(v_no,INF);
+		}
+		void dijkstra(int s)
+		{
+			priority_queue < ii, vector<ii> , greater <ii> > Q;
+			set();
+			D[s]=0;
+			Q.push( ii(D[s],s));
+			while(!Q.empty())
+			{
+				ii node = Q.top();
+				Q.pop();
+				long long d=node.first;
+				int v=node.second;
+				if(d<=D[v])
+				{
+					tr(adj[v],it)
+					{
+						int vertex=it->second;
+						long long weight=it->first;
+						if(D[vertex]>(d + weight))
+						{
+							D[vertex]=d+weight;
+							Q.push( ii (D[vertex],vertex));
+						}
+					}
+				}
+			}
+		}
+		long long int result(int node)
+		{
+			return D[node];
+		}
+};
+
+int main()
+{	
+	int t,s,e,n,p,x,y,w;
+	long long ans;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d%d%d%d",&n,&p,&s,&e);
+		Graph G(n);
+		while(p--)
+		{
+			scanf("%d%d%d",&x,&y,&w);
+			G.addEdge(x-1,y-1,w);
+			G.addEdge(y-1,x-1,w);
+		}
+		G.dijkstra(s-1);
+		ans=G.result(e-1);
+		if(ans==INF)
+			printf("NONE\n");
+		else
+			printf("%lld\n",ans);
+	}		
+	return 0;
+}
+			
+

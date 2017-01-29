@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	long long int k,n,s,m=1,i,x,j,p;
+	while(scanf("%lld",&n) && n!=-1)
+	{	
+		long long int c[1000]={0};		
+		printf("Case %lld:\n",m++);
+		for(i=n;i>=0;i--)
+			scanf("%lld",(c+i));
+		scanf("%lld",&k);
+		for(i=0;i<k;i++)
+		{
+			scanf("%lld",&x);
+			s=0;
+			if(x)
+			{
+				p=(long long int)pow(x,n);
+				for(j=n;j>0;j--)
+				{
+					s+=(c[j]*p);
+					p=p/x;
+				}
+			}
+			s=s+c[0];
+			printf("%lld\n",s);
+		}
+	}
+	return 0;
+}

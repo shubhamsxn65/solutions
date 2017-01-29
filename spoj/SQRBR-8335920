@@ -1,0 +1,60 @@
+#include<stdio.h>
+#include<string.h>
+int n,k,hash[50][50];
+int fun(char a[],int low,int open,int close)
+{
+	int x=0,y=0,p;
+	if(hash[open-close][low]!=-1)
+		return hash[open-close][low];
+	if(low==(2*n))
+	{
+		if(open==close+1 && a[low]!='[')
+			p=1;
+		else
+			p=0;
+	}	
+	else if(a[low]=='0')
+	{	
+		if(open==close)
+			p=fun(a,low+1,open+1,close);
+		else if(open>close)
+		{
+		if(close<n)
+			x=fun(a,low+1,open,close+1);
+		if(open<n)
+			y=fun(a,low+1,open+1,close);
+		p=x+y;
+		}
+	else
+		p=0;
+	}
+	else if(a[low]=='[')
+		p=fun(a,low+1,open+1,close);
+	else
+		p=0;
+	hash[open-close][low]=p;
+	return p;
+}
+
+
+int main()
+{
+	char a[50];
+	int t,b,i,j;
+	scanf("%d",&t);
+	while(t--)
+	{
+		memset(hash,-1,sizeof(hash));
+		for(i=0;i<50;i++)
+			a[i]='0';
+		scanf("%d%d",&n,&k);
+		for(i=0;i<k;i++)
+		{
+		scanf("%d",&b);
+		a[b]='[';
+		}
+		printf("%d\n",fun(a,1,0,0));
+
+	}
+	return 0;
+}

@@ -1,0 +1,52 @@
+#include<cstdio>
+#include<algorithm>
+#include<vector>
+#include<cstdlib>
+#include<cstring>
+#include<string>
+using namespace std;
+#define MP make_pair
+#define PB push_back
+#define MOD 1000000000
+#define MAX 30
+#define INF 999999999
+#define X first
+#define Y second
+
+typedef pair<int,int> pii;
+typedef pair< int, pii  > edge;
+long long wage,hire,fire,dp[MAX][310];
+int req[MAX],mon;
+long long fun(int idx,int c_emp)
+{
+	if(idx==mon)
+		return 0;
+	if(dp[idx][c_emp]!=-1)
+		return dp[idx][c_emp];
+	long long ans=INF;
+	if(req[idx]> c_emp)
+	{
+		int diff=req[idx]-c_emp;
+		ans = wage*req[idx] + diff*hire + fun(idx+1,req[idx]);
+	}
+	else
+	{
+		int can_fire = c_emp - req[idx];
+		for(int i=can_fire;i>=0;i--)
+			ans = min(ans,fire*i + wage*(c_emp-i) + fun(idx+1,c_emp-i));
+	}
+	return (dp[idx][c_emp]=ans);
+}
+int main()
+{	
+	int cnt=1;
+	while(scanf("%d",&mon) && mon!=0)
+	{
+		memset(dp,-1,sizeof(dp));
+		scanf("%d%d%d",&hire,&wage,&fire);
+		for(int i=0;i<mon;i++)
+			scanf("%d",&req[i]);
+		printf("Case %d, cost = $%lld\n",cnt++,fun(0,0));
+	}
+	return 0;
+}

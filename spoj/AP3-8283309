@@ -1,0 +1,23 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	long long i,p,d,q,t;
+	long double s,B,n,a,b,r,u;
+	scanf("%lld",&t);
+	while(t--)
+	{
+		scanf("%Lf%Lf%Lf",&a,&b,&s);
+		n=(((a-b+(2.0*s))/(2.0*(a+b)))+3.0)+(sqrtl(((((a-b+(2.0*s))/(2.0*(a+b)))+3.0)*(((a-b+(2.0*s))/(2.0*(a+b)))+3.0)) - (12.0*s/(a+b))));
+		p=llrint(n);
+		r=((b-a)/(p-6.0));
+		d=llrint(r);
+		u=a-(2.0*d);
+		q=llrint(u);
+		printf("%lld\n",p);
+		for(i=0;i<p;i++)
+			printf("%lld ",q+(i*d));
+		printf("\n");
+	}
+	return 0;
+} 

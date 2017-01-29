@@ -1,0 +1,48 @@
+#include<stdio.h>
+int main()
+{
+	int t,n,lucky[110],count,frequency[110],max,min,x,i;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d",&n);
+		int hash[110]={0};
+		count=0;
+		for(i=0;i<n;i++)
+		{
+			scanf("%d",&x);
+			hash[x]++;
+		}
+		for(i=1;i<=100;i++)
+			if(hash[i]%i==0 &&hash[i])
+			{	//printf("%d\t",i);
+				frequency[count]=hash[i];
+				lucky[count]=i;
+				count++;
+			}
+		if(count==0)
+		{
+			printf("-1\n");
+			continue;
+		}
+		max=0;
+		for(i=0;i<count;i++)
+		{
+			if(frequency[i]>max)
+				max=frequency[i];
+		}
+		min=110;
+		for(i=0;i<count;i++)
+		{
+			if(frequency[i]==max)
+			{
+				if(lucky[i]<min)
+					min=lucky[i];
+			}
+		}
+		printf("%d\n",min);
+	}
+	return 0;
+}
+				
+		

@@ -1,0 +1,51 @@
+#include<stdio.h>
+#include<math.h>
+#include<stdlib.h>
+int main()
+{
+    unsigned int d,j,n,q,z,t;
+    unsigned char *a;
+    int i,f;
+    double p;
+    p=0.0;
+   
+
+    for(j=2;j<=100;j++)       
+        p+=log10(j);       
+    d=(int)p+1;        
+    a=(unsigned char *)malloc(d*sizeof(unsigned char));
+   
+   
+    scanf("%d",&f);
+    while(f--)
+{
+    scanf("%d",&n);
+    if(n==1)
+    {
+        printf("1\n");
+        continue;
+    }
+    a[0]=1;                     
+    for(i=1;i<d;i++)     
+        a[i]=0;
+    p=0.0;
+    for(j=2;j<=n;j++)
+    {
+        q=0;
+        p+=log10(j);
+        z=(int)p+1;        
+        for(i=0;i<z;i++)
+        {
+            t=(a[i]*j)+q;
+            q=(t/10);
+            a[i]=(char)(t%10);
+        }
+    }
+    for(i=z-1;i>=0;i--)
+        {
+            printf("%d",a[i]);
+        }
+        printf("\n");
+}
+ return 0;
+}

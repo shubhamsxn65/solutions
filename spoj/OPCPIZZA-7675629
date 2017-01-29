@@ -1,0 +1,58 @@
+#include<stdio.h>
+#include<stdlib.h>
+void mergesort(int a[], int low, int high)
+ { 
+ 	int i = 0;
+ 	int length = high - low + 1; 
+ 	int pivot  = 0; 
+ 	int merge1 = 0; 
+ 	int merge2 = 0; 
+	int working[length]; 
+ 	if(low == high)  
+  		return;  
+	pivot  = (low + high) / 2; 
+	mergesort(a, low, pivot);
+	mergesort(a, pivot + 1, high); 
+        for(i = 0; i < length; i++)  
+                working[i] = a[low + i]; 
+        merge1 = 0; 
+        merge2 = pivot - low + 1; 
+        for(i = 0; i < length; i++) 
+        {  
+        	if(merge2 <= high - low)   
+        		if(merge1 <= pivot - low)    
+        			if(working[merge1] > working[merge2]) 
+            					a[i + low] = working[merge2++];  
+             			else     a[i + low] = working[merge1++]; 
+                 	else    a[i + low] = working[merge2++];
+                else   a[i + low] = working[merge1++];
+        }
+}
+int main()
+{
+	int t,n,m,*a,i,j,c,s;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d%d",&n,&m);
+		a=(int*)malloc(sizeof(int)*n);
+		for(i=0;i<n;i++)
+			scanf("%d",(a+i));
+		mergesort(a,0,n-1);
+		i=0;j=n-1;c=0;
+		while(j>i)
+		{
+			s=a[i]+a[j];
+			if(s==m)
+			{
+				i++;j--;c++;
+			}
+			else if(s>m)
+				j--;
+			else
+				i++;
+		}
+		printf("%d\n",c);
+	}
+	return 0;
+}

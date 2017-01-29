@@ -1,0 +1,115 @@
+#include<cstdio>
+#include<queue>
+#include<vector>
+#include<list>
+#include<algorithm>
+
+using namespace std;
+
+#define INF 987654321
+#define tr(c,i) for(typeof((c).begin()) i = (c).begin();i!=(c).end();i++)
+
+typedef pair<int,int> ii;
+typedef list<ii> lii;
+typedef vector<int> vi;
+
+class Graph
+{
+	vi D;
+	lii *adj;
+	int v_no;
+	
+	public:
+		Graph(int v)
+		{
+			this->v_no = v;
+			adj = new lii[v];
+		}
+		void addEdge(int from,int to,int w)
+		{
+			adj[from].push_back(ii(w,to));
+		}
+		void set(void)
+		{
+			D=vi(v_no,INF);
+		}
+		void dijkstra(int s)
+		{
+			priority_queue < ii, vector<ii> , greater <ii> > Q;
+			set();
+			D[s]=0;
+			Q.push( ii(D[s],s));
+			while(!Q.empty())
+			{
+				ii node = Q.top();
+				Q.pop();
+				int d=node.first;
+				int v=node.second;
+				if(d<=D[v])
+				{
+					tr(adj[v],it)
+					{
+						int vertex=it->second;
+						int weight=it->first;
+						if(D[vertex]>(d + weight))
+						{
+							D[vertex]=d+weight;
+							Q.push( ii (D[vertex],vertex));
+						}
+					}
+				}
+			}
+		}
+		int result(int node)
+		{
+			return D[node];
+		}
+};
+
+int main()
+{	
+	int i,j,a,b,c,d,x,y;
+	Graph G(70);
+	for(i=0;i<=7;i++)
+		for(j=0;j<=7;j++)
+		{
+			if(j>0)
+			{
+				if(i+2<8)
+					G.addEdge(i*8 + j,((i+2)*8) + j-1,(i*(i+2))+(j*(j-1)));
+				if(i-2>=0)
+					G.addEdge(i*8 + j,((i-2)*8) + j-1,(i*(i-2))+(j*(j-1)));
+			}
+			if(j>1)
+			{
+				if(i+1<8)
+					G.addEdge(i*8 + j,((i+1)*8) + j-2,(i*(i+1))+(j*(j-2)));
+				if(i-1>=0)
+					G.addEdge(i*8 + j,((i-1)*8) + j-2,(i*(i-1))+(j*(j-2)));
+			}
+			if(j+1<=7)
+			{
+				if(i+2<8)
+					G.addEdge(i*8 + j,((i+2)*8) + j+1,(i*(i+2))+(j*(j+1)));
+				if(i-2>=0)
+					G.addEdge(i*8 + j,((i-2)*8) + j+1,(i*(i-2))+(j*(j+1)));
+			}
+			if(j+2<=7)
+			{
+				if(i+1<8)
+					G.addEdge(i*8 + j,((i+1)*8) + j+2,(i*(i+1))+(j*(j+2)));
+				if(i-1>=0)
+					G.addEdge(i*8 + j,((i-1)*8) + j+2,(i*(i-1))+(j*(j+2)));
+			}
+		}
+	while(scanf("%d%d%d%d",&a,&b,&c,&d)!=EOF)
+	{
+		G.dijkstra(a*8 + b);
+		x=G.result(c*8 + d);
+		if(x==INF)
+			printf("-1\n");
+		else
+			printf("%d\n",x);
+	}
+	return 0;
+}

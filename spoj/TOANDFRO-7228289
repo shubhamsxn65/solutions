@@ -1,0 +1,48 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	char a[250];
+	int c,i,j,r,l,k;
+	do
+	{
+		scanf("%d",&c);
+		k=getchar();
+		if(c)
+		{	
+		gets(a);
+		l=strlen(a);
+		r=l/c;
+		k=0;
+		char t[r][c];
+		i=0;
+		while(1)
+		{
+			for(j=0;j<c;j++)
+			{
+				t[i][j]=a[k];
+				k++;
+			}
+			i++;
+			if(i==r)
+				break;
+			for(j=c-1;j>=0;j--)
+			{
+				t[i][j]=a[k];
+				k++;
+			}
+			i++;
+			if(i==r)
+				break;
+		}
+		for(i=0;i<c;i++)
+		{
+			for(j=0;j<r;j++)
+				printf("%c",t[j][i]);
+		}
+		printf("\n");
+		}
+	}while(c);
+	return 0;
+}
+				

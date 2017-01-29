@@ -1,0 +1,32 @@
+#include<cstdio>
+#include<algorithm>
+#define MAX 40005
+using namespace std;
+
+int main()
+{
+	int t,n,x[MAX],y[MAX],w,h;
+	long long maxx,maxy;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d%d%d",&w,&h,&n);
+		for(int i=0;i<n;i++)
+			scanf("%d%d",x+i,y+i);
+		sort(x,x+n);
+		sort(y,y+n);
+		x[n]=w+1;
+		y[n]=h+1;
+		maxx=x[0];
+		maxy=y[0];
+		for(int i=1;i<=n;i++)
+		{
+			maxx=max(maxx,(long long)x[i]-x[i-1]);
+			maxy=max(maxy,(long long)y[i]-y[i-1]);
+		}
+		maxx-=1;
+		maxy-=1;
+		printf("%lld\n",maxx*maxy);
+	}
+	return 0;
+}

@@ -1,0 +1,51 @@
+#include<stdio.h>
+#include<math.h>
+long long int val,ans;
+long long  int euler(long long int n)
+{
+	
+		long long i,c;
+		c=n;
+		val=n;
+		for(i=2;i*i<=n;i++)
+		{
+			if(n%i==0)
+			{
+				while(!(n%i))
+					n/=i;
+				val-=(val/i);
+			}
+		}
+		if(n>1)
+			val-=(val/n);
+		return val;
+}
+int get_int(void)
+{
+	char c;
+	c=getc_unlocked(stdin);
+	ans=0;
+	while(c>32)
+	{
+		ans=(ans*10)+(c-48);
+		c=getc_unlocked(stdin);
+	}
+	return ans;
+}
+int main()
+{
+	int i,j,n,t;
+	long long h=0,e[10010];
+	t=get_int();
+	for(i=1;i<=10000;i++)
+	{
+		h=h+euler(i);
+		e[i]=h;
+	}
+	while(t--)
+	{
+		n=get_int();
+		printf("%lld\n",e[n]*e[n]);
+	}
+	return 0;
+}

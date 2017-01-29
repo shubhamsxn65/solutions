@@ -1,0 +1,38 @@
+#include<stdio.h>
+#include<string.h>
+#include<math.h>
+int main()
+{
+	int n,k=1,count,i,max;
+	char a[160]={0},ch;
+	scanf("%d",&n);
+	ch=getchar();
+	while(n--)
+	{	
+		count=0;
+		max=0;i=0;
+		ch=getchar();
+		while(ch!='\n')
+		{
+			a[i++]=ch;
+			ch=getchar();
+		}
+		a[i]='\0';
+		if(a[0]=='\0')
+			printf("%d 1\n",k++);
+		else
+		{
+			for(i=0;a[i];i++)
+			{
+				if(a[i]=='[')
+					count++;
+				else
+					count--;
+				if(count>max)
+					max=count;
+			}
+			printf("%d %lld\n",k++,(long long int)pow(2,max));
+		}
+	}
+	return 0;
+}

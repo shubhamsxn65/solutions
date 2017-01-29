@@ -1,0 +1,15 @@
+#include<stdio.h>
+int main()
+{
+        int n,l;
+        do
+        {
+                scanf("%d",&n);
+                if(n)
+                {
+                        l=n*(n+1)*(2*n+1)/6;
+                        printf("%d\n",l);
+                }
+        }while(n);
+        return 0;
+}

@@ -1,0 +1,73 @@
+#include<stdio.h>
+void merge(long long a[],long long low,long long high,long long mid)
+{
+	long long i, j, k, c[20000];
+	i=low;
+	j=mid+1;
+	k=low;
+	while((i<=mid)&&(j<=high))
+	{
+		if(a[i]<a[j])
+		{
+			c[k]=a[i];
+			k++;
+			i++;
+		}
+		else
+		{
+			c[k]=a[j]; 
+			k++;
+			j++;
+		}
+	}
+	while(i<=mid)
+	{
+		c[k]=a[i]; 
+		k++;
+		i++;
+	}
+	while(j<=high)
+	{
+		c[k]=a[j];
+		k++;
+		j++;
+	}
+	for(i=low;i<k;i++)
+		a[i]=c[i];
+}
+void mergesort(long long a[],long long low,long long high)
+{
+	long long mid;
+	if(low<high)
+	{
+		mid=(low+high)/2;
+		mergesort(a,low,mid);
+		mergesort(a,mid+1,high);
+		merge(a,low,high,mid);
+	}
+
+}
+
+
+
+int main()
+{
+	long long a[20010],t,i,n,k,min,c;
+	scanf("%lld",&t);
+	while(t--)
+	{
+		scanf("%lld%lld",&n,&k);
+		for(i=0;i<n;i++)
+			scanf("%lld",a+i);
+		mergesort(a,0,n-1);
+		min=1000000000;
+		for(i=0;i<n-k+1;i++)
+		{	
+			c=a[k-1+i]-a[i];//printf("c=%lld\n",c);
+			if(c<min)
+				min=c;
+		}
+		printf("%lld\n",min);
+	}
+	return 0;
+}

@@ -1,0 +1,37 @@
+#include<stdio.h>
+#include<math.h>
+int arr[1000]={0},c=0;
+int fun(int n)
+{	
+	int i,p=0,x;
+	if(n==1)
+		return 1;
+	else if(arr[n])
+		return 0;
+	else
+	{	arr[n]++;
+		for(i=n;i>0;i=i/10)
+			p=p+(i%10)*(i%10);
+		//printf("%d\t",p);
+		c++;
+		x=fun(p);
+	}
+}
+		
+int main()
+{
+	int p,i,n=0;
+	long long a;
+	scanf("%lld",&a);
+	for(i=a;i>0;i=i/10){
+		n=n+(i%10)*(i%10);//printf("%d\n",n);
+	}
+	//printf("%d\n",n);
+	c++;
+	p=fun(n);
+	if(p==0)
+		printf("-1\n");
+	else
+		printf("%d\n",c);
+	return 0;
+}

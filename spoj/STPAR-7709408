@@ -1,0 +1,64 @@
+#include<stdio.h>
+int top;int b[1005];
+void push(int n)
+{
+	b[++top]=n;
+	return;
+}
+
+int pop()
+{
+	int item;
+	if(top==-1)
+		return -1;
+	item=b[top--];
+	return item;
+}
+
+int main()
+{
+	int a[1005],i,item,key,t,n,pass;
+	//scanf("%d",&t);
+	while(1)
+	{
+		top=-1;
+		scanf("%d",&n);if(n==0)break;
+		for(i=0;i<n;i++)
+			scanf("%d",a+i);
+		key=1;pass=1;
+		for(i=0;i<n;i++)
+		{	
+			if(a[i]==key)
+			{	//printf("HI1\n");printf("\t%d %d\n",a[i],key);
+				key++;pass++;
+			}
+			else
+			{
+				item=pop();
+				if(item==key &&item>0)
+				{	//printf("HI2\n");printf("\t%d %d\n",a[i],key);
+					key++;pass++;i--;
+				}
+				else
+				{	top++;
+					push(a[i]);//printf("HI3\n");printf("\t%d %d\n",a[i],key);
+				}
+			}
+		}
+		while(top!=-1)
+		{
+			item=pop();
+			if(item==key)
+			{	//printf("HI4\n");
+				key++;
+				pass++;
+			}
+		}
+		//printf("%d %d\n",key,pass);
+		if(key==n+1)
+			printf("yes\n");
+		else
+			printf("no\n");
+	}
+	return 0;
+}

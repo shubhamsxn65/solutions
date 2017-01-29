@@ -1,0 +1,47 @@
+#include<iostream>
+#include<algorithm>
+#include<cstdio>
+#include<vector>
+
+using namespace std;
+
+typedef pair<int,int> ii;
+typedef vector<ii> vii;
+
+bool comp(const ii& x,const ii& y)
+{
+	return (x.second)<(y.second);
+}
+
+
+int main()
+{
+	int t,n,x,y,end,count;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d",&n);
+		vii v;
+		for(int i=0;i<n;i++)
+		{
+			scanf("%d%d",&x,&y);
+			ii node;
+			node.first=x;
+			node.second=y;
+			v.push_back(node);
+		}
+		sort(v.begin(),v.end(),comp);
+		end=0;
+		count=0;
+		for(int i=0;i<n;i++)
+		{
+			if(v[i].first>=end)
+			{
+				count++;
+				end=v[i].second;
+			}
+		}
+		printf("%d\n",count);		
+	}
+	return 0;
+}

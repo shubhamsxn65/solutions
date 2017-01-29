@@ -1,0 +1,57 @@
+#include<cstdio>
+#include<algorithm>
+#include<string>
+#include<vector>
+#include<iostream>
+#define INF 999999999
+using namespace std;
+int lcs( string X, string Y)
+{
+	int m=X.length();
+	int n=Y.length();
+	int L[m+1][n+1];
+	for(int i=0; i<=m; i++)
+	{
+		for (int j=0; j<=n; j++)
+		{
+			if (i == 0 || j == 0)
+				L[i][j] = 0;
+			else if (X[i-1] == Y[j-1])
+				L[i][j] = L[i-1][j-1] + 1;
+			else
+				L[i][j] = max(L[i-1][j], L[i][j-1]);
+		}
+	}
+	return L[m][n];
+}
+int main()
+{
+	int t,x;
+	char c;
+	scanf("%d",&t);
+	while(t--)
+	{
+		string a;
+		while(scanf("%d",&x) && x!=0)
+		{
+			c='0'+x;
+			a=a+string()+c;
+		}
+		int ans=-1;
+		while(scanf("%d",&x) && x!=0)
+		{
+			string t;
+			c='0'+x;
+			t=t+string()+c;
+			while(scanf("%d",&x) && x!=0)
+			{
+				c='0'+x;
+				t=t+string()+c;
+			}
+			//cout<<a<<"  "<<t<<endl;
+			ans=max(ans,lcs(a,t));
+		}
+		printf("%d\n",ans);
+	}
+	return 0;
+}

@@ -1,0 +1,56 @@
+#include<stdio.h>
+int arr[100005],temp[100005];
+void copy(int beg,int end)
+{
+	int i;
+	for(i=beg;i<=end;i++)
+	arr[i]=temp[i];
+}
+
+long long int join(int l1,int u1,int l2,int u2)
+{
+	long long int inv_cnt=0;
+	int q=l1,i=l1,j=l2;
+	while(i<=u1&&j<=u2)
+	{
+		if(arr[i]<arr[j]){
+			inv_cnt+=(long long)arr[i]*(u2+1-j);
+			temp[q++]=arr[i++];
+		}
+		else
+			temp[q++]=arr[j++];
+	}
+	while(i<=u1)
+		temp[q++]=arr[i++];
+	while(j<=u2)
+		temp[q++]=arr[j++];
+	return inv_cnt;
+}
+
+
+long long int merge(int beg,int end)
+{
+	int mid;
+	long long int inv_cnt=0;
+	if(beg>=end)
+		return inv_cnt;
+	mid=(beg+end)/2;
+	inv_cnt+=merge(beg,mid);
+	inv_cnt+=merge(mid+1,end);
+	inv_cnt+=join(beg,mid,mid+1,end);
+	copy(beg,end);
+	return inv_cnt;
+}
+
+int main(){
+	int t;
+	scanf("%d",&t);
+	while(t--){
+		int n,i;
+		scanf("%d",&n);
+		for(i=0;i<n;i++)
+			scanf("%d",&arr[i]);
+		printf("%lld\n",merge(0,n-1));
+	}
+	return 0;
+}

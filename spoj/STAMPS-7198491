@@ -1,0 +1,60 @@
+#include<stdio.h>
+#include<stdlib.h>
+void mergesort(long int a[], long int low, long int high)
+ { 
+ 	long int i = 0;
+ 	long int length = high - low + 1; 
+ 	long int pivot  = 0; 
+ 	long int merge1 = 0; 
+ 	long int merge2 = 0; 
+	long int working[length]; 
+ 	if(low == high)  
+  		return;  
+	pivot  = (low + high) / 2; 
+	mergesort(a, low, pivot);
+	mergesort(a, pivot + 1, high); 
+        for(i = 0; i < length; i++)  
+                working[i] = a[low + i]; 
+        merge1 = 0; 
+        merge2 = pivot - low + 1; 
+        for(i = 0; i < length; i++) 
+        {  
+        	if(merge2 <= high - low)   
+        		if(merge1 <= pivot - low)    
+        			if(working[merge1] > working[merge2]) 
+            					a[i + low] = working[merge2++];  
+             			else     a[i + low] = working[merge1++]; 
+                 	else    a[i + low] = working[merge2++];
+                else   a[i + low] = working[merge1++];
+        }
+}
+int main()
+{
+	long int k=1,c,n,m,f,i,s,*a,t;
+	scanf("%ld",&t);
+	while(t>0)
+	{
+		scanf("%ld%ld",&s,&f);
+		a=(long int*)malloc(f*sizeof(long int));
+		for(i=0;i<f;i++)
+			scanf("%ld",(a+i));
+		mergesort(a,0,f-1);
+		printf("Scenario #%ld:\n",k++);
+		m=0;c=0;
+		for(i=f-1;i>=0;i--)
+		{
+			m=m+a[i];
+			c++;
+			if(m>=s)
+			{
+				printf("%ld\n",c);
+				break;
+			}
+		}
+		if(m<s)
+			printf("impossible\n");
+		printf("\n");
+		t--;
+	}
+	return 0;
+}

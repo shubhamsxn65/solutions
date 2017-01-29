@@ -1,0 +1,14 @@
+#include<stdio.h>
+int main()
+{
+	unsigned long long int t,l,k;
+	scanf("%llu",&t);
+	while(t>0)
+	{
+		scanf("%llu",&k);
+		l=(192+(k-1)*250);
+		printf("%llu\n",l);
+		t--;
+	}
+	return 0;
+}

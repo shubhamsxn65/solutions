@@ -1,0 +1,83 @@
+#include<stdio.h>
+int hash[1411],time[1411],busy[1411],prev,start,end,num;
+int available(int cur)
+{
+	int flag=0,i;
+	for(i=start;i<=end;i++)
+	{	
+		if(time[i]+30==cur && busy[i]<4)
+		{	
+			busy[i]++;
+			time[i]=cur;
+			flag=1;
+			break;
+		}
+		if(busy[i]==4)
+			start++;
+	}
+	if(flag)
+		return 1;
+	else
+		return 0;
+}
+
+int find(void)
+{
+	int i,flag=0;
+	for(i=prev;i<1411;i++)
+	{
+		if(hash[i])
+		{
+			hash[i]--;	
+			flag=1;
+			prev=i;
+			break;
+		}
+	}
+	if(flag)
+		return prev;
+	else
+		return -1;
+}
+int get_int()
+{
+	char ch;
+	num=0;
+	ch=getc_unlocked(stdin);
+	while(ch>47)
+	{
+		num= num*10 +(ch-48);
+		ch=getc_unlocked(stdin);
+	}
+	return num;
+}
+int main()
+{
+	int t,teacher=0,x,cur_t,i;
+	t=get_int();
+	while(t--)
+	{
+		x=get_int();
+		hash[x]++;
+	}
+	time[0]=find();
+	teacher++;
+	busy[0]++;
+	while(1)
+	{
+		cur_t=find();
+		if(cur_t==-1)
+			break;
+		x=available(cur_t);
+		if(!x)
+		{	
+			end++;
+			teacher++;
+			time[end]=cur_t;
+			busy[end]++;
+		}
+	}
+	printf("%d\n",teacher);
+	return 0;
+}
+							

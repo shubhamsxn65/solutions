@@ -1,0 +1,42 @@
+#include<stdio.h>
+int ar[1010],n;
+long long fun(int prev,int i,long long store[][1010])
+{
+	if(store[prev][i])
+		return store[prev][i];
+	if(i==n)
+		return 0;
+	long long a,b=0;
+	a=fun(0,i+1,store);
+	if(!prev)
+		b=ar[i]+fun(1,i+1,store);
+	store[0][i]=a>b?a:b;
+	store[1][i]=a;
+	return store[0][i];
+}
+long long int get_int()
+{
+	char c;
+	long long int ans=0;
+	c=getc_unlocked(stdin);
+	while(c>47)
+	{	
+		ans=(ans*10) + (c-48);
+		c=getc_unlocked(stdin);
+	}
+	return ans;
+}
+int main()
+{
+	int t,i,k=1;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d\n",&n);
+		long long store[2][1010]={{}};
+		for(i=0;i<n;i++)
+			ar[i]=get_int();
+		printf("Case %d: %lld\n",k++,fun(0,0,store));
+	}
+	return 0;
+}

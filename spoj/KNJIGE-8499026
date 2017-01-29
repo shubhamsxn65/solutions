@@ -1,0 +1,15 @@
+#include<stdio.h>
+int main()
+{
+	int a[300010],n,swaps=0,i;
+	scanf("%d",&n);
+	for(i=1;i<=n;i++)
+		scanf("%d",a+i);
+	for(i=n;i>0;i--)
+	{
+		if(a[i]!=(i+swaps))
+			swaps++;
+	}
+	printf("%d\n",swaps);
+	return 0;
+}

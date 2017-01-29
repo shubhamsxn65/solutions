@@ -1,0 +1,41 @@
+#include<stdio.h>
+int main()
+{
+	int t,n,a[110],max,i,j;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d",&n);
+		max=0;
+		for(i=0;i<n;i++)
+		{
+			scanf("%d",a+i);
+			max+=a[i];
+		}
+		int T[max];
+		for(i=0;i<=max;i++)
+			T[i]=0;
+		T[0]=1;
+		int pm=0;
+		for(i=0;i<n;i++)
+		{
+			for(j=pm;j>=0;j--)
+				if(T[j])
+				{
+					//printf("%d ",j+a[i]);
+					T[j+a[i]]=1;
+					pm=pm>(j+a[i])?pm:j+a[i];
+				}
+			
+		}
+		pm=0;
+		for(i=1;i<=max;i++)
+		{
+			//printf("%d,%d ",T[i],i);
+			if(T[i])
+				pm+=i;
+		}
+		printf("%d\n",pm);
+	}
+	return 0;
+}

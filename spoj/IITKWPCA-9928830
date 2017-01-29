@@ -1,0 +1,69 @@
+#include<cstdio>
+#include<queue>
+#include<vector>
+#include<list>
+#include<algorithm>
+#include<iostream>
+#include<map>
+#include<cstring>
+#include<cstdlib>
+
+using namespace std;
+
+#define INF 987654321
+#define tr(c,i) for(typeof((c).begin()) i = (c).begin();i!=(c).end();i++)
+#define MAX 1000010
+
+void in(int *x)
+{
+    scanf("%d",x);
+}
+
+void o(int *x)
+{
+	printf("%d\n",*x);
+}
+
+typedef pair<int,int> ii;
+typedef list<ii> lii;
+typedef vector<int> vi;
+
+int main()
+{
+	int t;
+	char a[1010],c;
+	in(&t);
+	c=getchar();
+	while(t--)
+	{
+		map<string,int> m;
+		while(1)
+		{
+			string temp;
+			while((c=getchar())==32);
+			if(c<32)
+				break;
+		//	printf("c=%c ",c);
+			temp+=c;
+			while((c=getchar()))
+			{
+				if((c>='a' && c<='z')||(c>='A' && c<='Z'))
+					temp+=c;
+				else
+					break;
+			}
+		//	cout<<temp<<endl;
+			if(!temp.empty())
+			{
+				//cout<<temp<<endl;
+				m[temp]++;
+			}
+			if(c!=32)
+				break;
+		}
+		printf("%d\n",m.size());
+		m.clear();
+	}
+	return 0;
+}
+

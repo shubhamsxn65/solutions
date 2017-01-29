@@ -1,0 +1,44 @@
+#include<cstdio>
+#include<queue>
+#include<vector>
+#include<list>
+#include<algorithm>
+#include<iostream>
+#include<map>
+#include<cstring>
+#include<cstdlib>
+
+using namespace std;
+
+#define INF 987654321
+#define tr(c,i) for(typeof((c).begin()) i = (c).begin();i!=(c).end();i++)
+#define MAX 1000010
+
+void in(int *x)
+{
+	scanf("%d",x);
+}
+
+void o(int *x)
+{
+	printf("%d\n",*x);
+}
+
+typedef pair<int,int> ii;
+typedef list<ii> lii;
+typedef vector<int> vi;
+
+int main()
+{
+	int t,w,b;
+	in(&t);
+	while(t--)
+	{
+		in(&w);in(&b);
+		if(b%2)
+			printf("1.000000\n");
+		else
+			printf("0.000000\n");
+	}
+	return 0;
+}

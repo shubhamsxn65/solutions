@@ -1,0 +1,24 @@
+import java.io.*;
+import java.math.BigInteger;
+class test
+{
+	public static void main(String[] args)throws Exception
+	{
+		DataInputStream z= new DataInputStream(System.in);
+		int i;
+		for(i=0;i<10;i++)
+		{
+			String a=z.readLine();
+			String b=z.readLine();
+			BigInteger b1 = new BigInteger (a);
+			BigInteger b2 = new BigInteger (b);
+			BigInteger b3 = new BigInteger ("2");
+			BigInteger b_add = b1.add(b2);
+			BigInteger b_sub = b1.subtract(b2);
+			b_add=b_add.divide(b3);
+			b_sub=b_sub.divide(b3);
+			System.out.println(b_add);
+			System.out.println(b_sub);
+		}
+	}
+}

@@ -1,0 +1,53 @@
+#include<cstdio>
+#include<stack>
+#include<algorithm>
+using namespace std;
+
+long long area(int h[],int n)
+{
+	stack<int > s;
+	int i=0;
+	long long area=0;
+	//printf("hi\n");
+	while(i<n)
+	{
+		if(s.empty()||h[i]>=h[s.top()])
+			s.push(i++);
+		else
+		{
+			int tp=s.top();s.pop();
+			long long int width=1;
+			if(s.empty())
+				width=i;
+			else
+				width=i-1-s.top();
+			area=max(area,h[tp]*width);
+		}
+	}
+	
+	while(!s.empty())
+	{
+		int tp=s.top();s.pop();
+		int width=1;
+		if(s.empty())
+			width=i;
+		else
+			width=i-1-s.top();
+		area=max(area,h[tp]*(long long)width);
+	}
+	return area;
+}
+int main()
+{
+	int ar[100010],i,n;
+	while(1)
+	{
+		scanf("%d",&n);
+		if(n==0)
+			break;
+		for(i=0;i<n;i++)
+			scanf("%d",ar+i);
+		printf("%lld\n",area(ar,n));
+	}
+	return 0;
+}

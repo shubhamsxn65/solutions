@@ -1,0 +1,35 @@
+#include<cstdio>
+#include<algorithm>
+#include<cstring>
+using namespace std;
+int n;
+long long dp[10010][3];
+long long call_dp(int *ar,int pos,int prev)
+{
+	if(pos==n)
+		return 0;
+	if(dp[pos][prev])
+		return dp[pos][prev];
+	else
+	{
+		if(prev==0)
+			dp[pos][0]=max(call_dp(ar,pos+1,0),ar[pos]+call_dp(ar,pos+1,1));	
+		else
+			dp[pos][1]=call_dp(ar,pos+1,0);
+		return dp[pos][prev];
+	}
+}
+int main()
+{
+	int t,ar[10010],p=1;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d",&n);
+		for(int i=0;i<n;i++)
+			scanf("%d",ar+i);
+		printf("Case %d: %lld\n",p++,call_dp(ar,0,0));
+		memset(dp,0,sizeof(dp));
+	}
+	return 0;
+}

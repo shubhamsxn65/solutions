@@ -1,0 +1,46 @@
+#include<stdio.h>
+int fib[]={0,1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181,6765,10946,17711,28657,46368,75025,
+                          121393,196418,317811,514229,832040,1346269,2178309,3524578,5702887,9227465,14930352},left,right,mid;
+int find ( int a)
+{
+	left=0;right=38;
+	while(left<=right)
+	{
+		mid=(left+right)/2;
+		if(a==fib[mid])
+			return mid;
+		else if(a>fib[mid])
+			left=mid+1;
+		else
+			right=mid-1;
+	}
+	if(left>right)
+	{
+		if(a-fib[right]>=fib[left]-a)
+			return left;
+		else
+			return right;
+	}
+}
+			
+int main()
+{
+	int i,a,b,s=0,n;
+	while(scanf("%d",&n) && n)
+	{
+		int count[40]={0};
+		for(i=0;i<n;i++)
+		{
+			scanf("%d",&a);
+			count[find(a)]++;
+		}
+		for(i=0;i<39;i++)
+		{
+			while(count[i]--)
+				printf("%d ",fib[i]);
+		}
+		printf("\n");
+	}	
+	return 0;
+}
+

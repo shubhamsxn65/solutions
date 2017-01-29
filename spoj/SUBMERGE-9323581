@@ -1,0 +1,83 @@
+#include<iostream>
+#include<list>
+#include<cstdio>
+
+using namespace std;
+#define tr(c,i) for( typeof((c).begin()) i = (c).begin();i!=(c).end();i++)
+
+
+class Graph
+{
+	bool *artP;
+	int *children,v_no,*low,*d;
+	list<int> *adj;
+	public:
+		Graph(int v)
+		{
+			this->v_no=v;
+			artP=new bool [v];
+			children=new int [v];
+			adj = new list<int> [v];
+			d=new int [v];
+			low=new int [v];
+			for(int i=0;i<v;i++)
+			{
+				children[i]=0;
+				d[i]=low[i]-1;
+				artP[i]=0;
+			}
+				
+		}
+		void addEdge(int from,int to)
+		{
+			adj[from].push_back(to);
+		}
+		void DFS(int node)
+		{
+			low[node]=d[node];
+			tr(adj[node],it)
+			{
+				if(d[*it] ==-1)
+				{
+					d[*it]=d[node]+1;
+					children[node]++;
+					DFS(*it);
+					low[node]=min(low[node],low[*it]);
+					if(d[node]>0 && low[*it]>=d[node])
+						artP[node]=1;
+				}
+				else if(d[*it]<d[node]-1)
+					low[node]=min(low[node],d[*it]);
+			}
+			if(d[node]==0)
+				if(children[node]>1)
+					artP[node]=1;
+		}
+		int calc(void)
+		{
+			int count=0;
+			for(int i=0;i<v_no;i++)
+				if(artP[i]==1)
+					count++;
+			return count;
+		}
+};
+
+
+int main()
+{
+	int n,m,x,y;
+	while(scanf("%d%d",&n,&m) &&n &&m)
+	{
+		Graph G(n);
+		while(m--)
+		{
+			scanf("%d%d",&x,&y);
+			G.addEdge(x-1,y-1);
+			G.addEdge(y-1,x-1);
+		}
+		G.DFS(0);
+		printf("%d\n",G.calc());
+	}
+	return 0;
+}

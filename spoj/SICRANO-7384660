@@ -1,0 +1,29 @@
+#include<stdio.h>
+int main()
+{
+	long int x,y,n,m,t,x1,x2,y1,y2,p[60][2],a,b,c,i,j;
+	scanf("%ld",&t);
+	while(t--)
+	{
+		scanf("%ld%ld",&n,&m);
+		for(i=0;i<n;i++)
+			scanf("%ld%ld",&(p[i][0]),&(p[i][1]));
+		for(i=0;i<m;i++)
+		{	c=0;
+			scanf("%ld%ld%ld%ld",&x1,&y1,&x2,&y2);
+			for(j=0;j<n;j++)
+			{	x=p[j][0];y=p[j][1];
+				a=(y-y1)*(x2-x1);
+				b=(x-x1)*(y2-y1);
+				if(a==b)
+				{
+					if((x<=x2 && x>=x1) || (x>=x2 && x<=x1))
+						if((y<=y2 && y>=y1) || (y>=y2 && y<=y1))
+								c++;
+				}
+			}
+			printf("%ld\n",c);
+		}
+	}
+	return 0;
+}

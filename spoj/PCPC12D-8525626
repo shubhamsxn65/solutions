@@ -1,0 +1,64 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	int t,i,n,j,k,flag,s,no=1;
+	char a[1000][210],temp[210],c;
+	scanf("%d",&t);
+	while(t--)
+	{
+		int hash[1000][26]={0},print[1000]={0};
+		scanf("%d\n",&n);
+		for(i=0;i<n;i++)
+		{
+			gets(a[i]);
+			for(j=0;a[i][j];j++)
+			{
+				if((a[i][j]>64)&& (a[i][j]<91))
+					hash[i][a[i][j]-'A']++;
+				else if((a[i][j]>96) && (a[i][j]<123))
+					hash[i][a[i][j]-'a']++;
+			}
+		}
+		for(i=0;i<n;i++)
+		{
+			for(j=0;j<n-i-1;j++)
+			{
+				flag=1;
+				for(k=0;k<26;k++)
+				{
+					if(hash[j][k]>hash[j+1][k])
+					{
+						flag=1;
+						break;
+					}
+					else if(hash[j][k]<hash[j+1][k])
+					{
+						flag=0;
+						break;
+					}
+				}
+				if(flag==1)
+				{
+					//printf("i=%d=1.%s %s\n",i+1,a[j],a[j+1]);
+					strcpy(temp,a[j]);
+					strcpy(a[j],a[j+1]);
+					strcpy(a[j+1],temp);
+					for(k=0;k<26;k++)
+					{
+						s=hash[j][k];
+						hash[j][k]=hash[j+1][k];
+						hash[j+1][k]=s;
+					}
+					//printf("2.%s %s\n",a[j],a[j+1]);
+				}
+			}
+		}
+		printf("case: %d\n",no++);
+		for(i=n-1;i>=0;i--)
+			printf("%s\n",a[i]);
+		//printf("\t t=%d\n",t);
+	}
+	return 0;
+}
+			

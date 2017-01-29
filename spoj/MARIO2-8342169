@@ -1,0 +1,14 @@
+#include<stdio.h>
+int main()
+{
+	int t,m,k,l=1;
+	double ans;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d%d",&m,&k);
+		ans=1.0/((m*k)+k+1);
+		printf("Case #%d: %.8lf\n",l++,ans);
+	}
+	return 0;
+}

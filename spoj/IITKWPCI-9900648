@@ -1,0 +1,113 @@
+/*
+	if (a,b) and (b,c) can be swapped then (a,c) can also be. So, we could have found the transitive closure of all pairs and then for each position with which
+	position a can be swapped, find the one with min value in that position. But transitive closure takes O(n^3) time.
+	So what i have done is->
+	1.	Applied bfs n times to find connected components.
+	2. For each connected component, sort the positions acc. to the value of elements present on that position.
+	3. For each position in that particular connected component replace the element at that position with the most profitable position with which
+		that element can be swapped.
+*/
+
+#include <iostream>
+#include <queue>
+#include <list>
+#include <vector>
+#include <cstdio>
+#include<map>
+#include<string>
+#include<algorithm>
+
+#define INF 999999999
+#define tr(c,i) for(typeof((c).begin()) i = (c).begin(); i != (c).end(); i++) 
+
+using namespace std;
+
+typedef vector<int> vi;
+typedef pair<int , int> ii;
+typedef list<int> li;
+
+class Graph
+{
+	int v_no,end;
+	li * adj;
+
+	public:
+	vi D;
+	int *ar;
+	vector < bool> vis;
+	vector <int> visited;
+	Graph(int v_no)
+	{
+		this->v_no = v_no;
+		adj = new li[v_no+1];
+		ar = new int[v_no+1];
+		vis = vector<bool>(v_no+1,false);
+	}
+
+	void addEdge (int start, int end);
+	void BFS(int start);
+};
+void Graph :: addEdge (int start, int end)
+{
+	adj[start].push_back(end);
+	adj[end].push_back(start);
+}
+
+void Graph :: BFS (int start)
+{
+	//printf("start=%d\n",start);
+	int temp[1005];
+	int i,k=0,temp2[1005],min=100000000,pos;
+	visited = vector<int>(v_no+1);
+	queue< int > Q; 
+	Q.push(start);		
+	while(!Q.empty())
+	{
+		int v = Q.front();
+		Q.pop();
+		visited[v]=1;
+		tr(adj[v],it)
+			if(visited[*it]==0)
+			{
+				visited[*it]=-1;
+				Q.push(*it);
+			}
+	}
+	for(i=1;i<=v_no;i++)
+		if(visited[i])
+		{
+			vis[i]=1;
+			temp[k]=ar[i];
+			temp2[k++]=i;
+		}
+	sort(temp,temp+k);
+	for(i=0;i<k;i++)
+		ar[temp2[i]]=temp[i];		
+}
+int main()
+{
+	int t,i,p,q;
+	scanf("%d",&t);
+	while(t--)
+	{
+		int no,edges,start,weight,end;
+		scanf("%d%d",&no,&edges);
+		Graph G(no);
+		for(i=1;i<=no;i++)
+			scanf("%d",&G.ar[i]);
+		for(i=1;i<=edges;i++)
+		{
+			scanf("%d%d",&p,&q);
+			G.addEdge(p,q);
+		}
+		for(i=1;i<=no;i++)
+			if(!G.vis[i])
+				G.BFS(i);
+		for(i=1;i<=no;i++)
+			printf("%d ",G.ar[i]);
+		printf("\n");
+	}
+	return 0;
+}
+
+

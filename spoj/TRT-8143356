@@ -1,0 +1,29 @@
+#include<stdio.h>
+long long mat[2010][2010],v[2010];
+long long int revenue(long long i,long long j,long long age,long long sum)
+{
+	long long int s1,s2;
+	if(mat[i][j])
+		return mat[i][j];
+	if(i==j)
+		return v[i]*age;
+	else
+	{	
+		s1=v[i]*age+revenue(i+1,j,age+1,sum);
+		s2=v[j]*age+revenue(i,j-1,age+1,sum);
+		if(s1>s2)
+			mat[i][j]=s1;
+		else
+			mat[i][j]=s2;
+		return mat[i][j];
+	}
+}
+int main()
+{
+	long long int n,i;
+	scanf("%lld",&n);
+	for(i=0;i<n;i++)
+		scanf("%lld",v+i);
+	printf("%lld\n",revenue(0,n-1,1,0));
+	return 0;
+}

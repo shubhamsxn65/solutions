@@ -1,0 +1,100 @@
+#include <queue>
+#include <list>
+#include <vector>
+#include <cstdio>
+#define INF 999999999
+#define ERR 0.00000001
+#define tr(c,i) for(typeof((c).begin()) i = (c).begin(); i != (c).end(); i++) 
+
+using namespace std;
+
+typedef vector<double> vi;
+typedef pair<double,int> ii;
+typedef list<ii> lii;
+
+class Graph
+{
+	int v_no,end;
+	lii * adj;
+	void initializeD(double value);
+public:
+	vi D;
+	vector < bool> F;
+	Graph(int v_no)
+	{
+		this->v_no = v_no;
+		adj = new lii[v_no+1];
+	}
+	void addEdge (int start, int end,double weight);
+	void dijkstra(int start,int x);
+};
+
+void Graph :: initializeD(double value)
+{
+		D = vi(v_no+1,value);
+		F = vector<bool>(v_no+1,false);
+}
+void Graph :: addEdge (int start, int end,double weight)
+{
+	ii node(weight, end);
+	adj[start].push_back(node);
+	ii node1(weight, start);
+	adj[end].push_back(node1);
+}
+
+void Graph :: dijkstra (int start,int x)
+{
+	end=x;	
+	priority_queue< ii,vector<ii> > Q; 
+	initializeD(0.0);
+	D[start] = 100.0;				// Mark distance to source as 0 in the beginning
+	Q.push(ii(100.0,start));		//Insert first node in priority queue.
+	while(!Q.empty())
+	{
+		ii top = Q.top();	//Get the node of minimum weight (from the top of min priority queue)
+		Q.pop();
+		int v = top.second;
+		//printf("%d\n",v);
+		if(v==end)
+            break;
+        if(F[v])
+			continue;
+		F[v]=1;
+		tr(adj[v],it)
+		{					//Traverse the adj list of vertex v 
+			double weight = it->first;
+			int vertex = it->second;
+			double p=((D[v] * weight)/100.0);
+			if(D[vertex] < p)
+			{
+				D[vertex] = p;	//Updadte the vector D
+				//printf("%f\n",it->first);
+				ii node(p,vertex);		//Create new pair<int,int> to push into queue
+				Q.push(node);
+			}
+		}
+	}
+}
+
+int main()
+{
+	int t,i;
+	while(1)
+	{
+		int no,edges,start,end,weight;
+		scanf("%d",&no);
+		if(!no)
+			break;
+		scanf("%d",&edges);
+		Graph G(no);
+		for(int i=0;i<edges;i++)
+		{
+			scanf("%d%d%d",&start,&end,&weight);
+			//printf("%f\n",weight);
+			G.addEdge(start, end, (1.0*weight));
+		}
+		G.dijkstra(1,no);
+		printf("%.6f percent\n",G.D[no]);
+	}
+	return 0;
+}

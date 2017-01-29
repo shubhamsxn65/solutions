@@ -1,0 +1,17 @@
+#include<stdio.h>
+int main()
+{
+	int t,n;
+	long long m;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d",&n);
+		m=((long long)n -1)/2;
+		m=(m*m)%n;
+		if(m<0)
+			m+=n;
+		printf("%lld\n",m);
+	}
+	return 0;
+}

@@ -1,0 +1,45 @@
+#include<stdio.h>
+long long a[100010],n,store[100010];
+long long maxfun(long long a,long long b,long long c)
+{
+  long long max=a;
+  if(b>=a&&b>=c)
+     max=b;
+  else if(c>=a&&c>=b)
+     max=c;
+  return max;
+}
+long long fun(long long i,long long store[])
+{
+	if(i>=n)
+		return 0;
+	if(store[i])
+		return store[i];
+	if(i+2<n)
+		store[i]=maxfun(a[i]+fun(i+2,store),a[i]+a[i+1]+fun(i+4,store),a[i]+a[i+1]+a[i+2]+fun(i+6,store));
+	else if(i+1<n)
+		store[i]=maxfun(a[i]+fun(i+2,store),a[i]+a[i+1]+fun(i+4,store),0);
+	else
+		store[i]=a[i];
+	return store[i];
+}
+
+int main()
+{
+	int t,i;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%lld",&n);
+		long long store[100010]={};
+		for(i=0;i<n;i++)
+			scanf("%lld",a+i);
+		if(n==1)
+			printf("%lld\n",a[0]);
+		else if(n==2)
+			printf("%lld\n",a[0]+a[1]);
+		else
+			printf("%lld\n",fun(0,store));
+	}
+	return 0;
+}	

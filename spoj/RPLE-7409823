@@ -1,0 +1,30 @@
+#include<stdio.h>
+int main()
+{	
+	int a[10010][2],n,t,k=1,m,i,j,flag;
+	scanf("%d",&t);
+	while(t--)
+	{	
+		scanf("%d%d",&n,&m);
+		for(i=0;i<m;i++)
+			scanf("%d%d",&a[i][0],&a[i][1]);
+		flag=0;
+		printf("Scenario #%d: ",k++);
+		for(i=0;i<m;i++)
+		{
+			for(j=0;j<m;j++)
+				if(a[i][0]==a[j][1])
+				{
+					flag=1;
+					break;
+				}
+			if(flag)
+				break;
+		}
+		if(flag)
+			printf("spied\n");
+		else
+			printf("spying\n");
+	}
+	return 0;
+}

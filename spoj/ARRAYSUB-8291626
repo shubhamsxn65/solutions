@@ -1,0 +1,106 @@
+#include<stdio.h>
+
+int forward[1000000],backward[1000000];
+
+int main()
+{
+
+	int a[1000000],i,n,k,max,c,it,mul;
+
+	scanf("%d",&n);
+
+	for(i=0;i<n;i++)
+
+		scanf("%d",a+i);
+
+	scanf("%d",&k);
+
+	i=0;
+
+	while(i<n)
+	{
+
+		max=a[i];
+
+		c=0;
+
+		while(c!=k && i<n)
+
+		{
+	
+		if(a[i]>max)
+
+				max=a[i];
+
+			forward[i]=max;
+
+			//printf("%d ",forward[i]);
+
+			i++;
+
+			c++;
+
+
+		}
+
+	}
+
+	//printf("\n");
+
+	it=0;mul=0;
+
+	while(it<n)
+
+	{
+
+		mul++;
+
+		i=mul*k;
+
+		i--;
+
+		if(i>=n)
+
+			i=n-1;
+
+		max=a[i];
+
+		c=0;
+
+		while(c!=k)
+
+		{
+
+			if(a[i]>max)
+
+				max=a[i];
+
+			//printf("a[i]=%d max=%d i=%d\n",a[i],max,i);
+
+			backward[i]=max;
+
+			i--;
+
+			c++;
+
+			it++;
+
+		}
+
+	}
+
+	/*for(i=0;i<n;i++)
+
+		printf("%d ",backward[i]);
+
+	printf("\n");*/
+
+	for(i=0;i+k-1<n;i++)
+	
+		printf("%d ",forward[k-1+i]>backward[i]?forward[k-1+i]:backward[i]);
+
+	printf("\n");
+
+	return 0;
+
+}

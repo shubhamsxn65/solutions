@@ -1,0 +1,14 @@
+#include<stdio.h>
+int main()
+{
+	long long int r,t,i,s;
+	scanf("%lld",&t);
+	for(i=1;i<=t;i++)
+	{	
+		scanf("%lld",&r);
+		s=(4*r*r)+0.25;
+		printf("Case %lld: %lld.25\n",i,s);
+		
+	}
+	return 0;
+}

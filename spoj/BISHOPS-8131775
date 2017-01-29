@@ -1,0 +1,54 @@
+#include<stdio.h>
+#include<string.h>
+char a[1000];
+int k,l;
+void into2(char a[])
+{	
+	int carry=0,i,dig;
+	int flag=0;
+	for(i=l-1;i>=0;i--)
+	{	//printf("a[i]=%d\n",a[i]);
+		dig=a[i]-48;
+		dig=dig*2+carry;//printf("dig=%d\n",dig);
+		a[i]=(dig%10)+48;//printf("\t%d\n",a[i]);
+		carry=dig/10;
+		if(i==0 && carry)
+			flag=1;	
+	}
+	if(flag)
+	{
+		for(i=l;i>=0;i--)
+			a[i+1]=a[i];
+		a[0]='1';
+	}
+}	
+		
+int main()
+{
+	int n,m,t,i,j;
+	while(scanf("%s",a)!=EOF)
+	{
+		l=strlen(a);//printf("%d",l);
+		if(l==1 && a[0]==49)
+		{
+			printf("1\n");
+			continue;
+		}
+		if(a[l-1]!=48)
+			a[l-1]--;
+		else
+		{
+			int j=l-2;	
+			while(a[j]==48)
+				j--;
+			a[j]--;
+			for(i=j+1;i<=l-1;i++)
+				a[i]=9+48;
+		}			
+		into2(a);
+		for(i=0;a[i];i++)
+			printf("%c",a[i]);
+		printf("\n");
+	}
+	return 0;
+}

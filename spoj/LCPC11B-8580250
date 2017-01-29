@@ -1,0 +1,65 @@
+#include<stdio.h>
+long long ans,prime[100000],count,k;
+void call(int sign,long long int no,int id,long long rg)
+{
+	int i;
+	if(id>k)
+		return ;
+	if(sign==1)
+	{
+		if(no!=1)
+			count-=(rg/no);
+		for(i=id;i<k;i++)
+			call(0,no*prime[i],i+1,rg);
+	}
+	else
+	{
+		if(no!=1)
+			count+=(rg/no);
+		for(i=id;i<k;i++)
+			call(1,no*prime[i],i+1,rg);
+	}
+}
+long long int get_int()
+{
+	char c;
+	ans=0;
+	c=getc_unlocked(stdin);
+	while(c>32)
+	{
+		ans=ans*10 +(c-48);
+		c=getc_unlocked(stdin);
+	}
+	return ans;
+}
+int main()
+{
+	int t,i,serial=1;
+	long long a,b,n;
+	scanf("%d\n",&t);
+	while(t--)
+	{
+		a=get_int();
+		b=get_int();
+		n=get_int();
+		k=0;count=0;
+		for(i=2;i*i<=n;i++)
+		{
+			if(n%i==0)
+			{
+				prime[k++]=i;
+				while(!(n%i))
+					n=n/i;
+			}
+		}
+		if(n>1)
+			prime[k++]=n;
+		call(1,1,0,b);
+		ans=b-count;
+		count=0;
+		call(1,1,0,a-1);
+		ans-=((a-1)-count);
+		printf("Case #%d: %lld\n",serial++,ans);
+	}
+	return 0;
+}

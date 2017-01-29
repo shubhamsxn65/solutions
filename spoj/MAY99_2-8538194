@@ -1,0 +1,26 @@
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+char ar[5]={'m','a','n','k','u'};
+void call(long long int n)
+{
+	n=n-1;
+	if(n/5)
+		call(n/5);
+	printf("%c",ar[n%5]);
+	return ;
+}
+
+int main()
+{
+	long long n;
+	int t;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%lld",&n);
+		call(n);
+		printf("\n");
+	}
+	return 0;
+}

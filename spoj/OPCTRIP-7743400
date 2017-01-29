@@ -1,0 +1,27 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	long long int test,n,m,cost,m1,m2,c,T,x,i,t;
+	scanf("%lld",&test);
+	while(test--)
+	{
+		scanf("%lld%lld",&n,&m);
+		cost=0;
+		for(i=0;i<n;i++)
+		{
+			scanf("%lld%lld%lld%lld",&t,&T,&x,&c);
+			if(t>=T)
+				cost+=(c+(m*x));
+			else
+			{
+				m1=c+ (m*x);
+				m2=c*(ceil((long double)m/(T-t)));
+				cost+=(m1>m2?m2:m1);
+			}
+		}
+		printf("%lld\n",cost);
+		//printf("%lld\t",t);
+	}
+	return 0;
+}

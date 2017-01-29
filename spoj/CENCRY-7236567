@@ -1,0 +1,41 @@
+#include<stdio.h>
+int main()
+{
+        int c,t,i,j;
+        char v[]={'a','e','i','o','u'},co[]={'b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','y','z'},s[50010];
+        scanf("%d",&t);
+        c=getchar();
+        while(t--)
+        {       int count[26]={0};
+                gets(s);
+                for(i=0;s[i];i++)
+                {       
+                        c=s[i];
+                        count[c-97]++;
+                        if(c=='a' || c=='e' || c=='i' || c=='o' || c=='u')
+                        {
+                                for(j=0;j<5;j++)
+                                {
+                                        if(c==v[j])
+                                                break;
+                                }
+                        j=j+(count[c-97]-1)*5;
+                        j=j%21;
+                        printf("%c",co[j]);
+                        }
+                        else
+                        {
+                                for(j=0;j<21;j++)
+                                {
+                                        if(c==co[j])
+                                                break;
+                                }
+                                j=j+(count[c-97]-1)*21;
+                                j=j%5;
+                                printf("%c",v[j]);
+                        }
+                }
+                printf("\n");
+        }
+        return 0;
+}

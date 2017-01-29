@@ -1,0 +1,60 @@
+#include<cstdio>
+#include<list>
+#define MAX 100010
+using namespace std;
+int color[MAX],rank[MAX],par[MAX];
+int find_set(int x)
+{
+	if(x!=par[x])
+		par[x]=find_set(par[x]);
+	return par[x];
+}
+void merge(int x,int y)
+{
+	int px=find_set(x);
+	int py=find_set(y);
+	if(rank[px]>rank[py])
+		par[py]=px;
+	else
+		par[px]=py;
+	if(rank[px]==rank[py])
+		rank[py]++;
+}
+int main()
+{
+	int n,i,q,t,f,x;
+	list<int> *adj;
+	scanf("%d",&n);
+	adj = new list<int> [n];
+	for(i=0;i<n;i++)
+		par[i]=i;
+	for(i=1;i<n;i++)
+	{
+		scanf("%d%d",&f,&t);
+		adj[f].push_back(t);
+		adj[t].push_back(f);
+	}
+	scanf("%d",&q);
+	list<int>::iterator it;
+	while(q--)
+	{
+		scanf("%d%d%d",&x,&f,&t);
+		if(x==1)
+		{
+			color[f]=t;
+			for(it=adj[f].begin();it!=adj[f].end();it++)
+				if(color[*it]==t)
+					merge(f,*it);
+		}
+		else
+		{
+			int px=find_set(f);
+			int py=find_set(t);
+			if(px==py)
+				printf("YES\n");
+			else
+				printf("NO\n");
+		}
+	}
+	return 0;
+}

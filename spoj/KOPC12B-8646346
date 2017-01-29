@@ -1,0 +1,43 @@
+#include<stdio.h>
+#define MOD 1000000007
+#define MAX 1000000
+int mypow(int base,int pow)
+{
+	if(base==1)
+		return 1;
+	if(pow==1)
+		return base;
+	if(!pow)
+		return 1;
+	long long int ans=(mypow(base,pow/2));
+	if(pow & 1)
+		return (((ans*ans)%MOD)*base)%MOD;
+	else
+		return (ans*ans)%MOD;
+}
+long long fact[2*MAX+10];
+int main()
+{
+	int t,n,i,f;
+	long long ans;
+	int inv[MAX+10];
+	fact[0]=1;
+	for(i=1;i<2*MAX;i++)
+		fact[i]=((long long)fact[i-1]*i)%MOD;
+	ans=mypow(fact[MAX],MOD-2);
+	inv[MAX]=ans;
+	for(i=MAX-1;i>=0;i--)
+	{
+		ans=((long long)inv[i+1]*(1+i))%MOD;
+		inv[i]=ans;
+	}
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d",&n);
+		ans=(fact[2*n -1]*inv[n-1])%MOD;
+		ans=(ans*inv[n-1])%MOD;
+		printf("%lld\n",ans);
+	}
+	return 0;
+}

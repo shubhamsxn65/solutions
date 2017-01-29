@@ -1,0 +1,14 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+        int t;
+        double v,s;
+        scanf("%d",&t);
+        while(t--)
+        {       scanf("%lf",&v);v=4*v;
+                s=(pow(v,(double)2/3))*3*sin(2*acos(0)/3);
+                printf("%.10lf\n",s);
+        }
+        return 0;
+}

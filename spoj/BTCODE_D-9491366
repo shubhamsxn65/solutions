@@ -1,0 +1,46 @@
+#include<cstdio>
+#include<iostream>
+#include<algorithm>
+#include<cstdlib>
+using namespace std;
+void get_array(int a[][110],int m,int n)
+{
+	int i,j;
+	for(i=0;i<m;i++)
+		for(j=0;j<n;j++)
+			scanf("%d",&a[i][j]);
+}
+
+int main()
+{
+	long long array[110],cost[110][110],sum,max;
+	int waiter[110][110],customer[110][110],i,j;
+	int t,m,n;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d%d",&m,&n);
+		get_array(waiter,m,n);
+		get_array(customer,m,n);
+		for(i=0;i<m;i++)
+			for(j=0;j<n;j++)
+				scanf("%lld",&cost[i][j]);
+		sum=0;
+		for(i=0;i<m;i++)
+		{
+			max=0;
+			for(j=0;j<n;j++)
+			{
+				if(waiter[i][j]>customer[i][j])
+					cost[i][j]*=customer[i][j];
+				else
+					cost[i][j]*=waiter[i][j];
+				if(cost[i][j]>max)
+					max=cost[i][j];
+			}
+			sum+=max;
+		}
+		printf("%lld\n",sum);
+	}
+	return 0;
+}

@@ -1,0 +1,76 @@
+#include<stdio.h>
+#define mod 1000000007
+long long ans;
+void mat_mult(long long int a[][2],long long int b[][2])
+{
+	long long int temp[2][2]={0,0,0,0},i,j,k;
+	for(i=0;i<2;i++)
+		for(j=0;j<2;j++)
+			for(k=0;k<2;k++)
+				temp[i][j]=((temp[i][j]+((a[i][k]*b[k][j])%mod))%mod);
+	for(i=0;i<2;i++)
+	{	for(j=0;j<2;j++)
+			a[i][j]=temp[i][j];
+	}
+	return;
+}
+
+
+void mat_pow(long long int a[][2],long long int n)
+{
+	long long int b[2][2]={1,1,1,0};
+	if(n==1)
+		return;
+	
+	else if(n & 1)
+	{	
+		mat_pow(a,n/2);
+		mat_mult(a,a);
+		mat_mult(a,b);
+	}
+	else
+	{	mat_pow(a,n/2);
+		mat_mult(a,a);
+	}
+	return ;
+}
+
+long long int get_int()
+{
+	char ch;
+	ans=0;
+	ch=getc_unlocked(stdin);
+	while(ch>47 && ch<58)
+	{
+		ans=(ans*10)+(ch-48);
+		ch=getc_unlocked(stdin);
+	}
+	return ans;
+}
+int main()
+{
+	long long n,m,t,x,y;
+	t=get_int();
+	while(t--)
+	{
+		long long a[2][2]={1,1,1,0},b[2][2]={1,1,1,0};
+		n=get_int();
+		m=get_int();
+		if(n==0)
+			x=0;
+		else
+		{
+			mat_pow(a,n);
+			x=(a[0][0]-1)%mod;
+		}
+		mat_pow(b,m+1);
+		y=b[0][0]-1;
+		long long ans=(y-x)%mod;
+		if(ans<0)
+			ans+=mod;
+		//printf("y=%lld\n",y);
+		//printf("x=%lld\ty=%lld\n",x,y);
+		printf("%lld\n",ans);
+	}
+	return 0;
+} 

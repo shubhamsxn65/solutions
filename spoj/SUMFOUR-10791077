@@ -1,0 +1,37 @@
+#include<cstdio>
+#include<vector>
+#include<algorithm>
+using namespace std;
+vector<int> ft,lt;
+int main()
+{
+	int n,a[4010],b[4010],c[4010],d[4010];
+	scanf("%d",&n);
+	for(int i=0;i<n;i++)
+		scanf("%d%d%d%d",a+i,b+i,c+i,d+i);
+	int k=0;
+	for(int i=0;i<n;i++)
+		for(int j=0;j<n;j++)
+			ft.push_back(a[i]+b[j]);
+	/*for(int i=0;i<ft.size();i++)
+		printf("%d ",ft[i]);
+	printf("\n");*/
+	for(int i=0;i<n;i++)
+		for(int j=0;j<n;j++)
+			lt.push_back(c[i]+d[j]);
+	sort(lt.begin(),lt.end());
+	/*for(int i=0;i<lt.size();i++)
+		printf("%d ",lt[i]);
+	printf("\n");*/
+	int count=0;
+	for(int i=0;i<ft.size();i++)
+	{
+		int l=lower_bound(lt.begin(),lt.end(),-ft[i])-lt.begin();
+		int h=upper_bound(lt.begin(),lt.end(),-ft[i])-lt.begin();
+		//printf("%d %d\n",lt[l],lt[h]);
+		if(lt[l]==-ft[i] && lt[h-1]==-ft[i])
+			count+=(h-l);
+	}
+	printf("%d\n",count);
+	return 0;
+}

@@ -1,0 +1,54 @@
+#include<stdio.h>
+long long int a[100010],tree[300030];
+long long int min(long long int a,long long int b)
+{
+	return a>b?b:a;
+}
+void build(int node,int b,int e)
+{
+	if(b>e)
+		return ;
+	if(b==e)
+	{
+		//printf("%lld ",a[b]);
+		tree[node]=a[b];
+		return ;
+	}
+	else
+	{
+		build(node*2,b,(b+e)/2);
+		build(node*2 +1,(b+e+2)/2,e);
+		tree[node]=min(tree[node*2],tree[node*2+1]);
+	}
+	return ;
+}
+
+long long querry(int node,int b,int e,int i,int j)
+{
+	if(b>e || b>j || i>e || i>j)
+		return 1000000001;
+	else if(b>=i && e<=j)
+		return tree[node];
+	else
+		return min(querry(node*2,b,(b+e)/2,i,j),querry(node*2 +1,(b+e+2)/2,e,i,j));
+}
+
+int main()
+{
+	int t,n,q,i,j,k=1;
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d%d",&n,&q);
+		for(i=1;i<=n;i++)
+			scanf("%lld",a+i);
+		build(1,1,n);
+		printf("Scenario #%d:\n",k++);
+		while(q--)
+		{
+			scanf("%d%d",&i,&j);
+			printf("%lld\n",querry(1,1,n,i,j));
+		}
+	}
+	return 0;
+}

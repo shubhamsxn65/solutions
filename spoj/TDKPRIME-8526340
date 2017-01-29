@@ -1,0 +1,27 @@
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+bool a[86028130];
+int ans,prime[5761500];
+int main()
+{
+	int k=0,i,j,t,n;
+	for(i=3;i*i<=86028121;i+=2)
+		if(!a[i])
+			for(j=i*i;j<=86028121;j+=(i+i))
+				if(!a[j])
+					a[j]=1;
+	prime[0]=2;
+	k=1;
+	for(i=3;i<=86028121;i+=2)
+		if(a[i]==0)
+			prime[k++]=i;
+	//printf("k=%d\n",k);
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d",&n);;
+		printf("%d\n",prime[n-1]);
+	}
+	return 0;
+}

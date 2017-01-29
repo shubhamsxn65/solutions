@@ -1,0 +1,23 @@
+#include<stdio.h>
+int main()
+{
+	float f,s,p,n;
+	do
+	{
+		scanf("%f",&f);
+		if(f)
+		{	
+			s=0;
+			for(n=1;n<300;n++)
+			{
+				p=(float)(1/(1+n));
+				s=s+p;
+				if(s>f)
+					break;
+				
+			}
+			printf("%.0f card(s)\n",n);
+		}
+	}while(f);
+	return 0;
+}			

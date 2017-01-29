@@ -1,0 +1,25 @@
+#include<stdio.h>
+long long int ar[1000006];
+int main()
+{
+	int j,i,n,t;
+	for(i=2;i*i<=1000000;i++)
+		for(j=i*i;j<=1000000;j+=i)
+		{
+			ar[j]=ar[j]+i;
+			if(i*i!=j)
+				ar[j]+=(j/i);
+		}
+	for(i=2;i<=1000000;i++)
+	{
+		ar[i]++;
+		ar[i]+=ar[i-1];
+	}
+	scanf("%d",&t);
+	while(t--)
+	{
+		scanf("%d",&n);
+		printf("%lld\n",ar[n]);
+	}
+	return 0;
+}
